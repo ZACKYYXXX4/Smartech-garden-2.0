@@ -103,13 +103,14 @@ function animateButton(btn) {
     video.currentTime = 0;  // mulai dari awal
     video.play();
 
-    // pas video selesai → sembunyikan overlay lagi
-    video.onended = () => {
-      overlay.style.opacity = 0;
+    // sembunyikan overlay otomatis 2 detik setelah muncul
+  setTimeout(() => {
+    overlay.style.opacity = 0;
+    if (video) {
       video.pause();
-      video.currentTime = 0; // reset biar siap lagi buat klik berikutnya
-    };
-  }
+      video.currentTime = 0;
+    }
+  }, 2000);
 }
 
 // Tombol AUTO
@@ -170,6 +171,7 @@ function showToast(message, type = "info", link = null) {
 document.addEventListener("DOMContentLoaded", () => {
   showToast("🔗 About Me", "link", "https://zackcode46.github.io/portfolioweb/");
 });
+
 
 
 
