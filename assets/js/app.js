@@ -24,7 +24,7 @@ if (logoutBtn) {
   logoutBtn.addEventListener("click", async () => {
     try {
       await signOut(auth);
-      window.location.href = "login.html";
+      window.location.href = "login_pages.html";
     } catch (err) {
       console.error("Logout gagal:", err);
     }
@@ -91,20 +91,20 @@ onValue(dbRef, (snapshot) => {
   if (data.suhu > 35) showToast("🌡️ Suhu tinggi! Ventilasi disarankan", "error");
 });
 
-// ===== Tombol Auto / Manual =====
+// ===== Tombol Auto / Manual dengan overlay hanya untuk tombol =====
 function animateButton(btn) {
   const overlay = btn.querySelector(".anim-overlay");
   const video = overlay.querySelector("video");
 
-  // munculkan overlay
-  overlay.style.opacity = 1;
+  overlay.style.opacity = 1;          // munculkan overlay
+  overlay.style.pointerEvents = "none"; // tetap bisa klik tombol
 
   if (video) {
     video.currentTime = 0;
     video.play();
   }
 
-  // sembunyikan overlay otomatis 2 detik setelah muncul
+  // fade out overlay dan reset video setelah 2 detik
   setTimeout(() => {
     overlay.style.opacity = 0;
     if (video) {
@@ -127,11 +127,13 @@ btnManual.addEventListener("click", () => {
   controls.querySelectorAll(".manual-pompa").forEach(el => el.style.display = "inline-block");
   showToast("🖐 Mode MANUAL aktif", "info");
 });
+
 // ===== Kontrol pompa manual =====
 window.setPompa = function(status) {
   set(ref(db, "kontrol/pompa"), status);
   showToast(`💧 Pompa ${status}`, "info");
 };
+
 // ===== TOAST NOTIFIKASI =====
 function showToast(message, type = "info", link = null) {
   const container = document.getElementById("notif-container");
@@ -143,7 +145,6 @@ function showToast(message, type = "info", link = null) {
     <span class="close-btn">&times;</span>
   `;
 
-  // Kalau ada link → bikin clickable
   if (link) {
     toast.classList.add("link");
     const msgEl = toast.querySelector(".msg");
@@ -153,7 +154,6 @@ function showToast(message, type = "info", link = null) {
     });
   }
 
-  // Tombol close
   toast.querySelector(".close-btn").addEventListener("click", () => {
     toast.classList.remove("show");
     setTimeout(() => toast.remove(), 300);
@@ -169,9 +169,11 @@ function showToast(message, type = "info", link = null) {
     }
   }, 4000);
 }
+
 document.addEventListener("DOMContentLoaded", () => {
   showToast("🔗 About Me", "link", "https://zackcode46.github.io/portfolioweb/");
 });
+
 
 
 
