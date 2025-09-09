@@ -93,25 +93,38 @@ onValue(dbRef, (snapshot) => {
 
 // ===== Tombol Auto / Manual =====
 function animateButton(btn) {
-  const overlay = btn.querySelector(".anim-overlay");
-  overlay.style.opacity = 1;   // tampilkan overlay
-  setTimeout(() => {
-    overlay.style.opacity = 0; // sembunyikan lagi setelah 2 detik
-  }, 2000);
+  const overlay = btn.querySelector(".anim-overlay");   // ambil overlay
+  const video = overlay.querySelector("video");         // ambil video di dalam overlay
+
+  // munculin overlay dengan efek fade-in (diatur di CSS)
+  overlay.style.opacity = 1;
+
+  if (video) {
+    video.currentTime = 0;  // mulai dari awal
+    video.play();
+
+    // pas video selesai → sembunyikan overlay lagi
+    video.onended = () => {
+      overlay.style.opacity = 0;
+      video.pause();
+      video.currentTime = 0; // reset biar siap lagi buat klik berikutnya
+    };
+  }
 }
 
+// Tombol AUTO
 btnAuto.addEventListener("click", () => {
   animateButton(btnAuto);
   controls.querySelectorAll(".manual-pompa").forEach(el => el.style.display = "none");
   showToast("🤖 Mode AUTO aktif", "info");
 });
 
+// Tombol MANUAL
 btnManual.addEventListener("click", () => {
   animateButton(btnManual);
   controls.querySelectorAll(".manual-pompa").forEach(el => el.style.display = "inline-block");
-  showToast("🤖 Mode MANUAL aktif", "info");
+  showToast("🖐 Mode MANUAL aktif", "info");
 });
-
 // ===== Kontrol pompa manual =====
 window.setPompa = function(status) {
   set(ref(db, "kontrol/pompa"), status);
@@ -157,6 +170,7 @@ function showToast(message, type = "info", link = null) {
 document.addEventListener("DOMContentLoaded", () => {
   showToast("🔗 About Me", "link", "https://zackcode46.github.io/portfolioweb/");
 });
+
 
 
 
