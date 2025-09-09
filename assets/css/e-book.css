@@ -1,0 +1,94 @@
+/* ===== Body ===== */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f7f7f7;
+  color: #333;
+}
+
+/* ===== Judul ===== */
+h1 {
+  text-align: center;
+  margin: 20px 0;
+  font-size: 2rem;
+}
+
+/* ===== Navigation ===== */
+.navigation {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.nav-link {
+  text-decoration: none;
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: #fff;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+}
+
+.nav-link:hover {
+  background-color: #45a049;
+}
+
+/* ===== Search Bar ===== */
+.search-bar {
+  display: block;
+  width: 80%;
+  max-width: 400px;
+  margin: 0 auto 30px auto;
+  padding: 10px 15px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+/* ===== Plant List Grid ===== */
+.plant-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 0 20px 40px 20px;
+}
+
+/* ===== Plant Card ===== */
+.plant-card {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  overflow: hidden;
+  text-align: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+  padding-bottom: 15px;
+}
+
+.plant-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+.plant-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.plant-card h3 {
+  font-size: 1.2rem;
+  margin: 10px 0 5px 0;
+  color: #333;
+}
+
+.plant-card p {
+  font-size: 0.9rem;
+  color: #555;
+  margin: 5px 10px;
+}
+
+.plant-card p strong {
+  color: #222;
+}

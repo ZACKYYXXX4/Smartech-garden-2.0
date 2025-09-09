@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> Smartech Garden History</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/history.css">
+</head>
+<body>
+  <h1 class="page-title">🌱 Smartech Garden History</h1>
+
+  <div class="navigation">
+    <a href="index.html" class="nav-link">🏠 Dashboard</a>
+    <a href="e-book_pages.html" class="nav-link">📖 E-book</a>
+  </div>
+
+  <div class="charts">
+    <div class="chart-container">
+      <h2>📊 Suhu (°C)</h2>
+      <canvas id="chartSuhuHistory"></canvas>
+    </div>
+    <div class="chart-container">
+      <h2>📊 Kelembaban (%)</h2>
+      <canvas id="chartKelembabanHistory"></canvas>
+    </div>
+    <div class="chart-container">
+      <h2>📊 Kelembaban Tanah (%)</h2>
+      <canvas id="chartTanahHistory"></canvas>
+    </div>
+    <div class="chart-container">
+      <h2>📊 Cahaya (Lux)</h2>
+      <canvas id="chartCahayaHistory"></canvas>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script type="module" src="assets/js/history.js"></script>
+</body>
+</html>

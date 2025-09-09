@@ -1,0 +1,140 @@
+{
+  "sensor": {
+    "suhu": 25,
+    "kelembaban": 65,
+    "tanah": 40,
+    "cahaya": 500
+  },
+  "kontrol": {
+    "pompa": "OFF"
+  },
+  "history": {
+    "2025-09-08T19:00:00Z": { "suhu": 25, "kelembaban": 65, "tanah": 40, "cahaya": 500 },
+    "2025-09-08T19:05:00Z": { "suhu": 26, "kelembaban": 64, "tanah": 42, "cahaya": 510 },
+    "2025-09-08T19:10:00Z": { "suhu": 26, "kelembaban": 63, "tanah": 43, "cahaya": 520 },
+    "2025-09-08T19:15:00Z": { "suhu": 27, "kelembaban": 62, "tanah": 45, "cahaya": 530 },
+    "2025-09-08T19:20:00Z": { "suhu": 27, "kelembaban": 61, "tanah": 46, "cahaya": 540 }
+  },
+  "e-book": [
+    {
+    "nama": "Tomat",
+    "gambar": "https://upload.wikimedia.org/wikipedia/commons/8/89/Tomato_je.jpg",
+    "jenis": "sayur",
+    "deskripsi": "Tanaman tomat menghasilkan buah berwarna merah yang sering digunakan sebagai sayuran dalam masakan. Kaya akan vitamin C dan likopen.",
+    "perawatan": "Siram secara rutin, butuh sinar matahari penuh, dan tanah yang subur serta drainase baik. Pemupukan dilakukan setiap 2 minggu."
+  },
+  {
+    "nama": "Apel",
+    "gambar": "https://upload.wikimedia.org/wikipedia/commons/1/15/Red_Apple.jpg",
+    "jenis": "buah",
+    "deskripsi": "Buah berwarna merah atau hijau, renyah, manis, dan kaya serat serta antioksidan.",
+    "perawatan": "Tanam di dataran tinggi, butuh sinar matahari penuh, pemangkasan rutin, dan pemupukan musiman."
+  },
+  {
+    "nama": "Pisang",
+    "gambar": "https://upload.wikimedia.org/wikipedia/commons/8/8a/Banana-Single.jpg",
+    "jenis": "buah",
+    "deskripsi": "Buah berkulit kuning, daging lembut, manis, dan kaya kalium. Cocok untuk camilan sehat.",
+    "perawatan": "Butuh tanah subur dan lembap, sinar matahari penuh, dan perlindungan dari angin kencang. Panen setelah 6-9 bulan."
+  },
+  {
+    "nama": "Tomat",
+    "gambar": "https://unsplash.com/id/foto/tomat-tergantung-di-tanaman-tomat-4LiUI-Y2mI8",
+    "jenis": "Sayur",
+    "deskripsi": "Tanaman tomat adalah tanaman sayur yang buahnya berbentuk bulat dan berwarna merah. Tomat kaya akan vitamin C dan digunakan dalam berbagai hidangan.",
+    "perawatan": "Butuh sinar matahari penuh, penyiraman teratur dan pemupukan secara berkala."
+  },
+  {
+    "nama": "Cabai Merah",
+    "gambar": "https://www.istockphoto.com/id/foto-foto/cabai-merah-ilustrasi-gm1461185164-495211131",
+    "jenis": "Sayur",
+    "deskripsi": "Cabai merah adalah tanaman sayuran yang menghasilkan buah pedas. Sering digunakan sebagai bumbu dapur dan bumbu masakan tradisional.",
+    "perawatan": "Tanah harus gembur dan kaya zat organik, perlu penyiraman rutin dan perlindungan dari hama."
+  },
+  {
+    "nama": "Bayam",
+    "gambar": "https://pixnio.com/id/tanaman/sayuran/lari-daun-bayam",
+    "jenis": "Sayur",
+    "deskripsi": "Bayam adalah sayuran daun hijau yang kaya akan zat besi dan vitamin.",
+    "perawatan": "Tanaman bayam memerlukan tanah yang lembab dan sinar matahari sedang."
+  },
+  {
+    "nama": "Wortel",
+    "gambar": "https://depositphotos.com/id/photos/wortel-besar.html",
+    "jenis": "Sayur",
+    "deskripsi": "Wortel adalah tanaman sayuran akar yang berwarna oranye dan kaya beta-karoten.",
+    "perawatan": "Tanah harus gembur dan subur, jangan sampai tergenang air."
+  },
+  {
+    "nama": "Kentang",
+    "gambar": "https://pixnio.com/id/tanaman/sayuran/kentang/kentang-merah-warna-merah-marun-tampilan-pasar",
+    "jenis": "Sayur",
+    "deskripsi": "Kentang adalah tanaman sayuran umbi yang sering digunakan sebagai bahan makanan pokok alternatif.",
+    "perawatan": "Perlu tanah yang gembur dan pengairan yang cukup."
+  },
+  {
+    "nama": "Mangga",
+    "gambar": "https://distan.bulelengkab.go.id/informasi/detail/artikel/mengolah-mangga-menjadi-sari-buah-58",
+    "jenis": "Buah",
+    "deskripsi": "Mangga adalah tanaman buah tropis dengan rasa manis dan kaya vitamin A dan C.",
+    "perawatan": "Menyukai iklim tropis, penyiraman rutin dan pemangkasan untuk menjaga tanaman tetap sehat."
+  },
+  {
+    "nama": "Jeruk",
+    "gambar": "https://www.shutterstock.com/id/search/jeruk",
+    "jenis": "Buah",
+    "deskripsi": "Jeruk adalah tanaman buah citrus yang kaya vitamin C dan sering dijadikan jus.",
+    "perawatan": "Tanah harus subur dan berdrainase baik, perlindungan dari hama seperti kutu dan ulat."
+  },
+  {
+    "nama": "Pisang",
+    "gambar": "https://pixnio.com/id/foto/tanaman/buah/pisang",
+    "jenis": "Buah",
+    "deskripsi": "Pisang adalah tanaman buah tropis yang mudah tumbuh dan mengandung banyak kalium.",
+    "perawatan": "Tanah lembab dan subur, perlindungan dari angin kencang dan hama."
+  },
+  {
+    "nama": "Semangka",
+    "gambar": "https://www.shutterstock.com/id/search/semangka",
+    "jenis": "Buah",
+    "deskripsi": "Semangka adalah buah berair yang segar dengan rasa manis dan tinggi kandungan air.",
+    "perawatan": "Memerlukan sinar matahari penuh dan tanah yang subur dengan drainase baik."
+  },
+  {
+    "nama": "Kangkung",
+    "gambar": "https://pixabay.com/photos/kangkung-water-spinach-vegetable-1245924/",
+    "jenis": "Sayur",
+    "deskripsi": "Kangkung adalah sayuran air yang biasa dikonsumsi sebagai lalapan atau sayur bening.",
+    "perawatan": "Tumbuh baik di tempat yang lembab dan penyiraman teratur."
+  },
+  {
+    "nama": "Terong",
+    "gambar": "https://www.shutterstock.com/id/search/terong",
+    "jenis": "Sayur",
+    "deskripsi": "Terong adalah sayuran yang berbuah ungu dan sering digunakan dalam masakan Asia.",
+    "perawatan": "Membutuhkan sinar matahari penuh dan penyiraman rutin."
+  },
+  {
+    "nama": "Apel",
+    "gambar": "https://www.istockphoto.com/id/foto/apel",
+    "jenis": "Buah",
+    "deskripsi": "Apel adalah buah berwarna merah atau hijau yang kaya akan serat dan vitamin.",
+    "perawatan": "Tumbuh baik di daerah dingin, memerlukan pemangkasan dan perlindungan dari hama."
+  },
+  {
+    "nama": "Melon",
+    "gambar": "https://www.shutterstock.com/id/search/melon",
+    "jenis": "Buah",
+    "deskripsi": "Melon adalah buah yang segar dengan rasa manis dan biasanya berwarna hijau sampai oranye.",
+    "perawatan": "Membutuhkan sinar matahari penuh dan penyiraman rutin."
+  },
+  {
+    "nama": "Kubis",
+    "gambar": "https://pixabay.com/photos/cabbage-vegetable-garden-584348/",
+    "jenis": "Sayur",
+    "deskripsi": "Kubis adalah sayuran daun yang biasa digunakan dalam salad dan masakan sayur.",
+    "perawatan": "Membutuhkan tanah subur dan penyiraman teratur."
+  }
+  ]
+}
+

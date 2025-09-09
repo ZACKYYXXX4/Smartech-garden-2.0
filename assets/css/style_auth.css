@@ -1,0 +1,131 @@
+/* ===== GLOBAL ===== */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(-45deg, #2ecc71, #27ae60, #1abc9c, #16a085);
+  background-size: 400% 400%;
+  animation: gradientBG 10s ease infinite;
+  overflow: hidden;
+}
+
+/* Background animasi gradasi */
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Animasi daun jatuh */
+.leaf {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iIzAwNjQwMCI+PHBhdGggZD0iTTE5LjUgN2MtMS41LTEuNS0zLjUtMi01LjUtMnMtNC4wIDEuNS01LjUgMmMtMS41IDEuNS0yIDMuNS0yIDUuNXMyIDEuNSAyIDMuNWMyIDEuNSAzLjUgMiA1LjUgMnMyLTIgMy41LTJjMS41LTEuNSAyLTMuNSAyLTUuNXMtLTIuNS00LTQtNHoiLz48L3N2Zz4=') no-repeat center;
+  background-size: cover;
+  animation: fall 10s linear infinite;
+  opacity: 0.7;
+}
+@keyframes fall {
+  0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+}
+
+/* Bikin beberapa daun random */
+.leaf:nth-child(1) { left: 10%; animation-duration: 8s; }
+.leaf:nth-child(2) { left: 30%; animation-duration: 12s; }
+.leaf:nth-child(3) { left: 50%; animation-duration: 10s; }
+.leaf:nth-child(4) { left: 70%; animation-duration: 14s; }
+.leaf:nth-child(5) { left: 90%; animation-duration: 9s; }
+
+/* ===== CONTAINER LOGIN/REGISTER ===== */
+.login-container {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 40px 30px;
+  border-radius: 15px;
+  box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.3);
+  width: 350px;
+  text-align: center;
+  animation: fadeIn 1.2s ease;
+  position: relative;
+  z-index: 2;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-50px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.login-container h1 {
+  margin-bottom: 20px;
+  color: #2c3e50;
+}
+
+.login-container input {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  border-radius: 8px;
+  border: 1px solid #bdc3c7;
+  outline: none;
+  transition: 0.3s;
+}
+.login-container input:focus {
+  border-color: #27ae60;
+  box-shadow: 0 0 8px #2ecc71;
+}
+
+/* ===== BUTTON ===== */
+.login-container button {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  color: #fff;
+}
+
+#googleLogin {
+  background: #db4437;
+}
+#googleLogin:hover {
+  background: #c1351d;
+  box-shadow: 0 0 15px rgba(219, 68, 55, 0.7);
+}
+
+#facebookLogin {
+  background: #1877f2;
+}
+#facebookLogin:hover {
+  background: #0d5bdd;
+  box-shadow: 0 0 15px rgba(24, 119, 242, 0.7);
+}
+
+#emailLogin, #registerBtn {
+  background: #27ae60;
+}
+#emailLogin:hover, #registerBtn:hover {
+  background: #219150;
+  box-shadow: 0 0 15px rgba(39, 174, 96, 0.7);
+}
+
+/* ===== LINK REGISTER/LOGIN ===== */
+.login-container p {
+  margin-top: 15px;
+}
+.login-container a {
+  color: #27ae60;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s;
+}
+.login-container a:hover {
+  color: #1abc9c;
+}

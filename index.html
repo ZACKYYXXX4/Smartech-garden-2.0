@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smartech Garden Dashboard</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="icon" type="image/png" href="assets/images/WhatsApp Image 2025-09-08 at 23.10.24_2c0a5fd1.jpg">
+</head>
+<body>
+  <!-- Tombol Logout -->
+  <button id="logoutBtn" class="logout-btn">🚪 Logout</button>
+
+  <h1>🌱 Smartech Garden Dashboard</h1>
+  <p class="slogan">“Smart Farming for Modern Living! Petani Cerdas Dengan Teknologi!”</p>
+
+  <!-- Navbar -->
+  <div class="navbar">
+    <img src="assets/images/WhatsApp Image 2025-09-08 at 23.10.24_2c0a5fd1.jpg" alt="Smart Garden Logo" class="logo-navbar">
+    <a href="index.html" class="nav-link">🏠 Dashboard</a>
+    <a href="history_pages.html" class="nav-link">📜 History</a>
+    <a href="e-book_pages.html" class="nav-link">📖 E-book</a>
+  </div>
+
+  <!-- Data sensor -->
+  <div class="sensor-data">
+    <p>🌡️ Suhu: <span id="suhu">--</span> °C</p>
+    <p>💧 Kelembaban: <span id="kelembaban">--</span> %</p>
+    <p>🌱 Kelembaban Tanah: <span id="tanah">--</span> %</p>
+    <p>☀️ Cahaya: <span id="cahaya">--</span> Lux</p>
+  </div>
+
+  <!-- Kontrol Mode -->
+  <div class="controls">
+    <h2>Kontrol Mode</h2>
+
+    <button id="btnAuto" class="mode-btn">
+  <span>Auto Mode</span>
+  <div class="anim-overlay">
+    <video autoplay loop muted playsinline>
+      <source src="./assets/images/sprinkler.mp4" type="video/mp4">
+    </video>
+  </div>
+</button>
+
+    <button id="btnManual" class="mode-btn">
+  <span>Manual Mode</span>
+  <div class="anim-overlay">
+    <video autoplay loop muted playsinline>
+      <source src="./assets/images/flower.mp4" type="video/mp4">
+    </video>
+  </div>
+</button>
+    <!-- Tombol Pompa Manual -->
+    <div id="manual-controls" style="display: none; margin-top: 10px;">
+      <button class="manual-pompa" onclick="setPompa('ON')">Pompa ON</button>
+      <button class="manual-pompa" onclick="setPompa('OFF')">Pompa OFF</button>
+    </div>
+  </div>
+
+  <!-- Grafik sensor -->
+  <h2>📊 Grafik Sensor</h2>
+  <canvas id="chartSuhu"></canvas>
+  <canvas id="chartKelembaban"></canvas>
+  <canvas id="chartTanah"></canvas>
+  <canvas id="chartCahaya"></canvas>
+
+  <!-- Container notifikasi toast -->
+  <div id="notif-container"></div>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Smartech Garden. Zack Company. All rights reserved.</p>
+  </footer>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Script utama -->
+  <script type="module" src="assets/js/app.js"></script>
+</body>
+</html>
