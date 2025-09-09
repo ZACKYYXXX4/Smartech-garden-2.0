@@ -93,17 +93,18 @@ onValue(dbRef, (snapshot) => {
 
 // ===== Tombol Auto / Manual =====
 function animateButton(btn) {
-  const overlay = btn.querySelector(".anim-overlay");   // ambil overlay
-  const video = overlay.querySelector("video");         // ambil video di dalam overlay
+  const overlay = btn.querySelector(".anim-overlay");
+  const video = overlay.querySelector("video");
 
-  // munculin overlay dengan efek fade-in (diatur di CSS)
+  // munculkan overlay
   overlay.style.opacity = 1;
 
   if (video) {
-    video.currentTime = 0;  // mulai dari awal
+    video.currentTime = 0;
     video.play();
+  }
 
-    // sembunyikan overlay otomatis 2 detik setelah muncul
+  // sembunyikan overlay otomatis 2 detik setelah muncul
   setTimeout(() => {
     overlay.style.opacity = 0;
     if (video) {
@@ -171,6 +172,7 @@ function showToast(message, type = "info", link = null) {
 document.addEventListener("DOMContentLoaded", () => {
   showToast("🔗 About Me", "link", "https://zackcode46.github.io/portfolioweb/");
 });
+
 
 
 
