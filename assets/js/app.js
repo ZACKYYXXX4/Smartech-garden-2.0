@@ -92,18 +92,22 @@ onValue(dbRef, (snapshot) => {
 });
 
 // ===== Tombol Auto / Manual =====
+function animateButton(btn) {
+  const overlay = btn.querySelector(".anim-overlay");
+  overlay.style.opacity = 1;   // tampilkan overlay
+  setTimeout(() => {
+    overlay.style.opacity = 0; // sembunyikan lagi setelah 2 detik
+  }, 2000);
+}
+
 btnAuto.addEventListener("click", () => {
-  const video = btnAuto.querySelector("video");
-  video.play(); // mulai animasi saat klik
-  animateButton(btnAuto, "anim-active-auto");
+  animateButton(btnAuto);
   controls.querySelectorAll(".manual-pompa").forEach(el => el.style.display = "none");
   showToast("🤖 Mode AUTO aktif", "info");
 });
 
 btnManual.addEventListener("click", () => {
-  const video = btnManual.querySelector("video");
-  video.play();
-  animateButton(btnManual, "anim-active-manual");
+  animateButton(btnManual);
   controls.querySelectorAll(".manual-pompa").forEach(el => el.style.display = "inline-block");
   showToast("🤖 Mode MANUAL aktif", "info");
 });
@@ -153,5 +157,6 @@ function showToast(message, type = "info", link = null) {
 document.addEventListener("DOMContentLoaded", () => {
   showToast("🔗 About Me", "link", "https://zackcode46.github.io/portfolioweb/");
 });
+
 
 
