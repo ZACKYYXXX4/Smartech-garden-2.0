@@ -1,11 +1,35 @@
 // ===== Import Firebase =====
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
+import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";
 import { getDatabase, ref, onValue, set } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js";
 import { firebaseConfig } from "./firebase_config.js"; // import config
 
-// Init Firebase
+// ===== Inisialisasi Firebase =====
 const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 const db = getDatabase(app);
+
+// ===== Auto redirect jika belum login =====
+onAuthStateChanged(auth, (user) => {
+  if (!user) {
+    window.location.href = "./login_pages.html"; // arahkan ke login
+  } else {
+    console.log("User sudah login:", user.email);
+  }
+});
+
+// ===== Tombol Logout =====
+const logoutBtn = document.getElementById("logoutBtn");
+if (logoutBtn) {
+  logoutBtn.addEventListener("click", async () => {
+    try {
+      await signOut(auth);
+      window.location.href = "login.html";
+    } catch (err) {
+      console.error("Logout gagal:", err);
+    }
+  });
+}
 
 // ===== HTML Elements =====
 const suhuEl = document.getElementById("suhu");
@@ -30,7 +54,7 @@ function createChart(ctx, label, color) {
   });
 }
 
-// Create charts
+// ===== Create charts =====
 const chartSuhu = createChart(document.getElementById("chartSuhu"), "Suhu (°C)", "red");
 const chartKelembaban = createChart(document.getElementById("chartKelembaban"), "Kelembaban (%)", "blue");
 const chartTanah = createChart(document.getElementById("chartTanah"), "Tanah (%)", "green");
@@ -63,29 +87,22 @@ onValue(dbRef, (snapshot) => {
   updateChart(chartTanah, data.tanah);
   updateChart(chartCahaya, data.cahaya);
 
-  // Notifikasi otomatis
   if (data.tanah < 30) showToast("💧 Tanah kering! Pompa aktif", "warning");
   if (data.suhu > 35) showToast("🌡️ Suhu tinggi! Ventilasi disarankan", "error");
 });
 
 // ===== Tombol Auto / Manual =====
-function animateButton(btn, animClass) {
-  const overlay = btn.querySelector(".anim-overlay");
-  overlay.classList.add(animClass);
-  overlay.style.opacity = 1;
-  setTimeout(() => {
-    overlay.classList.remove(animClass);
-    overlay.style.opacity = 0;
-  }, 1000);
-}
-
 btnAuto.addEventListener("click", () => {
+  const video = btnAuto.querySelector("video");
+  video.play(); // mulai animasi saat klik
   animateButton(btnAuto, "anim-active-auto");
   controls.querySelectorAll(".manual-pompa").forEach(el => el.style.display = "none");
   showToast("🤖 Mode AUTO aktif", "info");
 });
 
 btnManual.addEventListener("click", () => {
+  const video = btnManual.querySelector("video");
+  video.play();
   animateButton(btnManual, "anim-active-manual");
   controls.querySelectorAll(".manual-pompa").forEach(el => el.style.display = "inline-block");
   showToast("🤖 Mode MANUAL aktif", "info");
@@ -96,7 +113,6 @@ window.setPompa = function(status) {
   set(ref(db, "kontrol/pompa"), status);
   showToast(`💧 Pompa ${status}`, "info");
 };
-
 // ===== TOAST NOTIFIKASI =====
 function showToast(message, type = "info", link = null) {
   const container = document.getElementById("notif-container");
@@ -137,3 +153,4 @@ function showToast(message, type = "info", link = null) {
 document.addEventListener("DOMContentLoaded", () => {
   showToast("🔗 About Me", "link", "https://zackcode46.github.io/portfolioweb/");
 });
+
