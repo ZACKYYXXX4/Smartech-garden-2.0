@@ -67,13 +67,16 @@ body {
 
 .login-container input {
   width: 100%;
-  padding: 12px;
-  margin: 8px 0;
+  padding: 12px 16px;        /* padding horizontal + vertikal */
+  margin: 10px 0;            /* jarak antar input */
   border-radius: 8px;
   border: 1px solid #bdc3c7;
+  font-size: 16px;
   outline: none;
   transition: 0.3s;
+  box-sizing: border-box;    /* supaya width 100% sesuai */
 }
+
 .login-container input:focus {
   border-color: #27ae60;
   box-shadow: 0 0 8px #2ecc71;
@@ -129,3 +132,4 @@ body {
 .login-container a:hover {
   color: #1abc9c;
 }
+
