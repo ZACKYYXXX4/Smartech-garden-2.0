@@ -148,7 +148,7 @@ h1 {
 }
 
 /* Tombol Auto & Manual */
-.mode-btn {
+.mode-btn { 
   position: relative;
   padding: 12px 24px;
   border: none;
@@ -164,28 +164,10 @@ h1 {
 
 .mode-btn span {
   position: relative;
-  z-index: 2;
+  z-index: 2; /* teks tetap di atas video */
 }
 
-.mode-btn {
-  position: relative;
-  padding: 12px 24px;
-  border: none;
-  border-radius: 25px;
-  background: linear-gradient(135deg, #66bb6a, #43a047);
-  color: white;
-  font-size: 1rem;
-  cursor: pointer;
-  overflow: hidden;
-  z-index: 0;
-  transition: transform 0.2s;
-}
-
-.mode-btn span {
-  position: relative;
-  z-index: 2; /* supaya teks tetap terlihat di atas video */
-}
-
+/* Overlay video */
 .anim-overlay {
   position: absolute;
   top: 0;
@@ -194,8 +176,10 @@ h1 {
   height: 100%;
   overflow: hidden;
   border-radius: 25px; /* sama dengan tombol */
-  pointer-events: none;
+  pointer-events: none; /* klik tetap nembus ke tombol */
   z-index: 1;
+  opacity: 0; /* default tersembunyi */
+  transition: opacity 0.3s ease; /* efek fade */
 }
 
 .anim-overlay video {
@@ -204,9 +188,11 @@ h1 {
   object-fit: cover;
 }
 
+/* Hover efek tombol */
 .mode-btn:hover {
   transform: scale(1.05);
 }
+
 
 /* Tombol Pompa Manual */
 .controls button:not(.mode-btn) {
@@ -376,3 +362,4 @@ footer {
 .toast.show {
   animation: pulseGlow 2s infinite;
 }
+
