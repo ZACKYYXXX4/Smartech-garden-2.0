@@ -5,28 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>📖 E-Book Tanaman</title>
   <link rel="stylesheet" href="assets/css/style.css"> <!-- CSS utama -->
-<link rel="stylesheet" href="assets/css/e-book.css"> <!-- CSS khusus e-book -->
+  <link rel="stylesheet" href="assets/css/e-book.css"> <!-- CSS khusus e-book -->
 </head>
 <body>
   <header>
     <h1>📖 E-Book Tanaman</h1>
     <nav>
-      <a href="index.html">🏠 Dashboard</a>
-      <a href="history_pages.html">📜 History</a>
+      <a href="index.html" class="nav-link">🏠 Dashboard</a>
+      <a href="history_pages.html" class="nav-link">📜 History</a>
     </nav>
+    <input type="text" id="searchPlant" placeholder="Cari tanaman..." class="search-bar">
   </header>
 
-  <section class="search-section">
-    <input type="text" id="searchPlant" placeholder="Cari tanaman..." class="search-bar">
-  </section>
-
-  <section class="plant-section">
-    <div id="plant-list" class="plant-list"></div>
-  </section>
-
-  <div id="notif-container"></div>
+  <main>
+    <div class="plant-list" id="plant-list"></div>
+  </main>
 
   <script type="module" src="assets/js/e-book.js"></script>
 </body>
 </html>
-
