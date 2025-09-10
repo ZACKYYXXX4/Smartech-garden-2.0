@@ -1,35 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>E-Book Smartech Garden</title>
-  <!-- CSS utama -->
+  <title>Smartech Garden E-book</title>
   <link rel="stylesheet" href="assets/css/style.css">
-  <!-- CSS khusus e-book -->
   <link rel="stylesheet" href="assets/css/e-book.css">
 </head>
 <body>
-  <h1 class="page-title">📚 Koleksi E-Book Smartech Garden</h1>
+  <h1 class="page-title">📖 Smartech Garden E-book</h1>
 
-  <!-- Controls -->
-  <div class="controls-row">
-    <input type="text" id="searchInput" placeholder="🔍 Cari e-book...">
-    <select id="tagFilter">
-      <option value="all">Semua Jenis</option>
-    </select>
+  <!-- Navigation -->
+  <div class="navigation">
+    <a href="index.html" class="nav-link">🏠 Dashboard</a>
+    <a href="history_pages.html" class="nav-link">📊 History</a>
   </div>
 
-  <!-- List E-Book -->
-  <div id="ebook-list" class="ebook-grid"></div>
-
-  <!-- Note -->
-  <div class="note-box">
-    Klik pada card untuk membaca detail e-book 🌱
+  <!-- Search Bar -->
+  <div class="search-container">
+    <input type="text" id="searchInput" placeholder="🔍 Cari tanaman...">
   </div>
 
-  <!-- Firebase + JS -->
+  <!-- E-book List -->
+  <div id="ebookList" class="ebook-list"></div>
+
   <script type="module" src="assets/js/e-book.js"></script>
 </body>
 </html>
+
+
 
