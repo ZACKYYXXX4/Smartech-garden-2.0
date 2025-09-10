@@ -12,9 +12,12 @@ const db = getDatabase(app);
 // ===== Auto redirect jika belum login =====
 onAuthStateChanged(auth, (user) => {
   if (!user) {
-    window.location.href = "./login_pages.html"; // arahkan ke login
+    window.location.href = "./login_pages.html";
   } else {
     console.log("User sudah login:", user.email);
+    // Ambil data history dan e-book setelah login
+    fetchHistory();
+    fetchEbook();
   }
 });
 
@@ -40,6 +43,10 @@ const cahayaEl = document.getElementById("cahaya");
 const btnAuto = document.getElementById("btnAuto");
 const btnManual = document.getElementById("btnManual");
 const controls = document.querySelector(".controls");
+
+// History & E-book containers
+const historyList = document.getElementById("historyList"); // <ul> atau <div>
+const ebookList = document.getElementById("ebookList"); // <ul> atau <div>
 
 // ===== Chart helper =====
 function createChart(ctx, label, color) {
@@ -96,15 +103,14 @@ function animateButton(btn) {
   const overlay = btn.querySelector(".anim-overlay");
   const video = overlay.querySelector("video");
 
-  overlay.style.opacity = 1;          // munculkan overlay
-  overlay.style.pointerEvents = "none"; // tetap bisa klik tombol
+  overlay.style.opacity = 1;
+  overlay.style.pointerEvents = "none";
 
   if (video) {
     video.currentTime = 0;
     video.play();
   }
 
-  // fade out overlay dan reset video setelah 2 detik
   setTimeout(() => {
     overlay.style.opacity = 0;
     if (video) {
@@ -133,6 +139,40 @@ window.setPompa = function(status) {
   set(ref(db, "kontrol/pompa"), status);
   showToast(`💧 Pompa ${status}`, "info");
 };
+
+// ===== Fetch History =====
+function fetchHistory() {
+  const historyRef = ref(db, "history");
+  onValue(historyRef, (snapshot) => {
+    const data = snapshot.val();
+    if (!data) return;
+
+    historyList.innerHTML = "";
+    Object.keys(data).forEach(key => {
+      const item = data[key];
+      const li = document.createElement("li");
+      li.textContent = `${item.tanggal || "-"} - ${item.keterangan || "-"}`;
+      historyList.appendChild(li);
+    });
+  });
+}
+
+// ===== Fetch E-book =====
+function fetchEbook() {
+  const ebookRef = ref(db, "e-book");
+  onValue(ebookRef, (snapshot) => {
+    const data = snapshot.val();
+    if (!data) return;
+
+    ebookList.innerHTML = "";
+    Object.keys(data).forEach(key => {
+      const item = data[key];
+      const li = document.createElement("li");
+      li.innerHTML = `<a href="${item.url}" target="_blank">${item.judul || "Untitled"}</a>`;
+      ebookList.appendChild(li);
+    });
+  });
+}
 
 // ===== TOAST NOTIFIKASI =====
 function showToast(message, type = "info", link = null) {
@@ -173,10 +213,3 @@ function showToast(message, type = "info", link = null) {
 document.addEventListener("DOMContentLoaded", () => {
   showToast("🔗 About Me", "link", "https://zackcode46.github.io/portfolioweb/");
 });
-
-
-
-
-
-
-
