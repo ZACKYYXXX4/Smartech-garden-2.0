@@ -63,4 +63,63 @@ function applyFilter(data) {
   const selectedTag = tagFilter.value;
 
   const filtered = {};
-  Object.entries(data).forEach(([id, ebook]) =>
+  Object.entries(data).forEach(([id, ebook]) => {
+    const matchQuery =
+      ebook.judul?.toLowerCase().includes(query) ||
+      ebook.penulis?.toLowerCase().includes(query) ||
+      ebook.deskripsi?.toLowerCase().includes(query);
+
+    const matchTag = selectedTag === "all" || ebook.tags?.includes(selectedTag);
+
+    if (matchQuery && matchTag) {
+      filtered[id] = ebook;
+    }
+  });
+
+  renderEbooks(filtered);
+}
+
+// ===== Ambil data dari Firebase =====
+let ebookData = {};
+
+const ebookRef = ref(db, "ebook"); // pastikan sesuai dengan nama node di DB
+onValue(
+  ebookRef,
+  (snapshot) => {
+    const data = snapshot.val();
+    ebookData = data || {};
+    renderEbooks(ebookData);
+  },
+  (error) => {
+    console.error("Firebase error:", error);
+    ebookList.innerHTML = `<p style="color:red; text-align:center;">❌ Error akses Firebase: ${error.message}</p>`;
+  }
+);
+
+// ===== Event Listener =====
+searchInput.addEventListener("input", () => applyFilter(ebookData));
+tagFilter.addEventListener("change", () => applyFilter(ebookData));
+
+// ===== Dummy Data Loader =====
+if (loadSampleBtn) {
+  loadSampleBtn.addEventListener("click", () => {
+    const sample = {
+      ebook1: {
+        judul: "Panduan Menanam Tomat",
+        penulis: "Zacky",
+        deskripsi: "Tips menanam tomat dengan sistem hidroponik.",
+        link: "https://example.com/tomat.pdf",
+        tags: ["sayur", "hidroponik"]
+      },
+      ebook2: {
+        judul: "Budidaya Cabai Rawit",
+        penulis: "Ahmad",
+        deskripsi: "Langkah-langkah sukses budidaya cabai rawit.",
+        link: "https://example.com/cabai.pdf",
+        tags: ["sayur", "organik"]
+      }
+    };
+    ebookData = sample;
+    renderEbooks(ebookData);
+  });
+}
