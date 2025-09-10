@@ -1,8 +1,28 @@
-// Ambil data tanaman dari JSON
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+
+// Import config Firebase lo
+import { firebaseConfig } from "./firebase_config.js";
+
+// Init Firebase
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+// Ambil data tanaman dari Firebase (node: "e-book")
 async function loadPlants() {
-  const res = await fetch("assets/data/plants.json");
-  const data = await res.json();
-  return data;
+  const dbRef = ref(db);
+  try {
+    const snapshot = await get(child(dbRef, "e-book"));
+    if (snapshot.exists()) {
+      return snapshot.val(); // hasil array
+    } else {
+      console.warn("❌ Tidak ada data di Firebase");
+      return [];
+    }
+  } catch (error) {
+    console.error("🔥 Error ambil data:", error);
+    return [];
+  }
 }
 
 // Render data tanaman ke halaman
@@ -10,7 +30,7 @@ function renderPlants(plants) {
   const list = document.getElementById("ebookList");
   list.innerHTML = "";
 
-  if (plants.length === 0) {
+  if (!plants || plants.length === 0) {
     list.innerHTML = "<p style='text-align:center;'>❌ Tidak ada tanaman ditemukan</p>";
     return;
   }
