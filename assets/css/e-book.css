@@ -51,50 +51,48 @@ body {
   font-size: 1rem;
 }
 
-/* Ebook Cards */
+/* Container untuk list e-book */
 .ebook-list {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
+  margin-top: 20px;
 }
 
+/* Card styling */
 .card {
   background: #ffffffcc;
   border-radius: 15px;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
   padding: 15px;
-  box-shadow: 0 8px 15px rgba(0,0,0,0.1);
-  animation: fadeInUp 0.8s ease;
-  transition: transform 0.2s;
-}
-
-.card:hover {
-  transform: translateY(-5px);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .card img {
   width: 100%;
   height: 180px;
   object-fit: cover;
-  border-radius: 12px;
+  border-radius: 10px;
   margin-bottom: 10px;
 }
 
 .card h3 {
-  margin: 10px 0;
   color: #2e7d32;
+  margin: 8px 0;
 }
 
 .card p {
-  font-size: 0.95rem;
-  margin-bottom: 8px;
-  color: #444;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  margin-bottom: 6px;
 }
 
-.card .jenis {
-  font-style: italic;
-  color: #555;
-  margin-bottom: 8px;
+/* Efek hover */
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
 }
+
 
 /* Animations */
 @keyframes fadeIn {
@@ -124,3 +122,4 @@ body {
     grid-template-columns: 1fr 1fr 1fr;
   }
 }
+
