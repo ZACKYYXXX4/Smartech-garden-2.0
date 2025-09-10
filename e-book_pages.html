@@ -1,52 +1,34 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>E-Book - Smartech Garden</title>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-Book Smartech Garden</title>
   <!-- CSS utama -->
-  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/style.css">
   <!-- CSS khusus e-book -->
-  <link rel="stylesheet" href="assets/css/e-book.css" />
+  <link rel="stylesheet" href="assets/css/ebook.css">
 </head>
 <body>
-  <!-- Navbar -->
-  <div class="navbar">
-    <img src="assets/images/WhatsApp Image 2025-09-08 at 23.10.24_2c0a5fd1.jpg" 
-         alt="Smart Garden Logo" class="logo-navbar" />
-    <a href="index.html" class="nav-link">🏠 Dashboard</a>
-    <a href="history_pages.html" class="nav-link">📜 History</a>
-    <a href="e-book.html" class="nav-link">📖 E-book</a>
-  </div>
-
-  <!-- Title -->
   <h1 class="page-title">📚 Koleksi E-Book Smartech Garden</h1>
 
-  <!-- Search & filter -->
+  <!-- Controls -->
   <div class="controls-row">
-    <input type="search" id="searchInput" placeholder="Cari judul, penulis, atau tag..." />
+    <input type="text" id="searchInput" placeholder="🔍 Cari e-book...">
     <select id="tagFilter">
-      <option value="">Semua tag</option>
+      <option value="all">Semua Jenis</option>
     </select>
   </div>
 
-  <!-- List e-book -->
-  <div id="ebook-list" class="ebook-grid">
-    <!-- Cards akan diisi JS -->
-  </div>
+  <!-- List E-Book -->
+  <div id="ebook-list" class="ebook-grid"></div>
 
-  <!-- Catatan / helper -->
+  <!-- Note -->
   <div class="note-box">
-    <p>Kalau data tidak muncul, pastikan rules Firebase sudah benar.  
-       Klik <button id="loadSampleBtn">Load Sample</button> untuk coba dummy data.</p>
+    Klik pada card untuk membaca detail e-book 🌱
   </div>
 
-  <!-- Container notifikasi -->
-  <div id="notif-container"></div>
-
-  <!-- JS -->
-  <script type="module" src="assets/js/e-book.js"></script>
+  <!-- Firebase + JS -->
+  <script type="module" src="assets/js/ebook.js"></script>
 </body>
 </html>
-
