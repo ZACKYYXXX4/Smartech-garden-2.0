@@ -7,19 +7,24 @@
   <link rel="stylesheet" href="assets/css/e-book.css">
 </head>
 <body>
-  <h1>📖 E-Book Tanaman</h1>
+  <header>
+    <h1>📖 E-Book Tanaman</h1>
+    <nav>
+      <a href="index.html">🏠 Dashboard</a>
+      <a href="history_pages.html">📜 History</a>
+    </nav>
+  </header>
 
-  <div class="navigation">
-    <a href="index.html" class="nav-link">🏠 Dashboard</a>
-    <a href="history_pages.html" class="nav-link">📜 History</a>
-  </div>
+  <section class="search-section">
+    <input type="text" id="searchPlant" placeholder="Cari tanaman..." class="search-bar">
+  </section>
 
-  <input type="text" id="searchPlant" placeholder="Cari tanaman..." class="search-bar">
+  <section class="plant-section">
+    <div id="plant-list" class="plant-list"></div>
+  </section>
 
-  <div class="plant-list" id="plant-list"></div>
-  
+  <div id="notif-container"></div>
+
   <script type="module" src="assets/js/e-book.js"></script>
 </body>
 </html>
-
-
