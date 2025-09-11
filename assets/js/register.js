@@ -10,7 +10,10 @@ import {
 import { 
   getDatabase, 
   ref, 
-  set 
+  set, 
+  update, 
+  get, 
+  child 
 } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js";
 
 // 🔧 Firebase Config
@@ -33,18 +36,31 @@ const db = getDatabase(app);
 const googleProvider = new GoogleAuthProvider();
 const facebookProvider = new FacebookAuthProvider();
 
-// 🎯 Simpan data user ke Realtime Database
+// 🎯 Simpan / update user ke Realtime Database
 async function saveUserToDB(user, provider) {
   const userRef = ref(db, "users/" + user.uid);
-  await set(userRef, {
-    name: user.displayName || user.email.split("@")[0],
-    email: user.email,
-    provider: provider,
-    avatar: user.photoURL || "https://example.com/avatar/default.jpg",
-    role: "user",
-    created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString()
-  });
+
+  // cek user udah ada belum
+  const snapshot = await get(child(ref(db), "users/" + user.uid));
+  if (snapshot.exists()) {
+    // kalau udah ada → update updated_at aja
+    await update(userRef, {
+      updated_at: new Date().toISOString()
+    });
+    console.log("ℹ️ User lama login ulang, updated_at diperbarui");
+  } else {
+    // kalau belum ada → simpan data baru
+    await set(userRef, {
+      name: user.displayName || user.email.split("@")[0],
+      email: user.email,
+      provider: provider,
+      avatar: user.photoURL || "https://example.com/avatar/default.jpg",
+      role: "user",
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString()
+    });
+    console.log("✅ User baru disimpan ke DB");
+  }
 }
 
 // ✅ Register pakai Email & Password
@@ -95,4 +111,5 @@ document.getElementById("facebookLogin").addEventListener("click", async () => {
     alert(err.message);
   }
 });
+
 
