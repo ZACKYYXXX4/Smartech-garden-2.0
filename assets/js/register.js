@@ -16,7 +16,6 @@ import {
   child 
 } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js";
 
-// 🔧 Firebase Config (PASTIIN ADA databaseURL)
 const firebaseConfig = {
   apiKey: "AIzaSyB35rgDqqlPUsPf0UCy_IK-NbfvsPpz-4c",
   authDomain: "plant-1942d.firebaseapp.com",
@@ -28,29 +27,24 @@ const firebaseConfig = {
   measurementId: "G-5H86EBSWGL"
 };
 
-// 🔧 Init Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getDatabase(app);
 
-// Providers
 const googleProvider = new GoogleAuthProvider();
 const facebookProvider = new FacebookAuthProvider();
 
-// 🎯 Simpan / update user ke Realtime Database
 async function saveUserToDB(user, provider) {
   const userRef = ref(db, "users/" + user.uid);
 
   try {
     const snapshot = await get(child(ref(db), "users/" + user.uid));
     if (snapshot.exists()) {
-      // kalau udah ada → update updated_at aja
       await update(userRef, {
         updated_at: new Date().toISOString()
       });
       console.log("ℹ️ User lama login ulang, updated_at diperbarui");
     } else {
-      // kalau belum ada → simpan data baru
       await set(userRef, {
         name: user.displayName || user.email.split("@")[0],
         email: user.email,
@@ -68,7 +62,6 @@ async function saveUserToDB(user, provider) {
   }
 }
 
-// ✅ Register pakai Email & Password
 document.getElementById("registerBtn").addEventListener("click", async () => {
   const email = document.getElementById("regEmail").value.trim();
   const password = document.getElementById("regPassword").value.trim();
@@ -91,7 +84,6 @@ document.getElementById("registerBtn").addEventListener("click", async () => {
   }
 });
 
-// ✅ Register/Login pakai Google
 document.getElementById("googleRegister").addEventListener("click", async () => {
   try {
     const result = await signInWithPopup(auth, googleProvider);
@@ -104,7 +96,6 @@ document.getElementById("googleRegister").addEventListener("click", async () => 
   }
 });
 
-// ✅ Register/Login pakai Facebook
 document.getElementById("facebookRegister").addEventListener("click", async () => {
   try {
     const result = await signInWithPopup(auth, facebookProvider);
@@ -116,3 +107,4 @@ document.getElementById("facebookRegister").addEventListener("click", async () =
     alert(err.message);
   }
 });
+
