@@ -16,10 +16,11 @@ import {
   child 
 } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js";
 
-// 🔧 Firebase Config
+// 🔧 Firebase Config (PASTIIN ADA databaseURL)
 const firebaseConfig = {
   apiKey: "AIzaSyB35rgDqqlPUsPf0UCy_IK-NbfvsPpz-4c",
   authDomain: "plant-1942d.firebaseapp.com",
+  databaseURL: "https://plant-1942d-default-rtdb.asia-southeast1.firebasedatabase.app",
   projectId: "plant-1942d",
   storageBucket: "plant-1942d.appspot.com",
   messagingSenderId: "331323609056",
@@ -40,26 +41,30 @@ const facebookProvider = new FacebookAuthProvider();
 async function saveUserToDB(user, provider) {
   const userRef = ref(db, "users/" + user.uid);
 
-  // cek user udah ada belum
-  const snapshot = await get(child(ref(db), "users/" + user.uid));
-  if (snapshot.exists()) {
-    // kalau udah ada → update updated_at aja
-    await update(userRef, {
-      updated_at: new Date().toISOString()
-    });
-    console.log("ℹ️ User lama login ulang, updated_at diperbarui");
-  } else {
-    // kalau belum ada → simpan data baru
-    await set(userRef, {
-      name: user.displayName || user.email.split("@")[0],
-      email: user.email,
-      provider: provider,
-      avatar: user.photoURL || "https://example.com/avatar/default.jpg",
-      role: "user",
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString()
-    });
-    console.log("✅ User baru disimpan ke DB");
+  try {
+    const snapshot = await get(child(ref(db), "users/" + user.uid));
+    if (snapshot.exists()) {
+      // kalau udah ada → update updated_at aja
+      await update(userRef, {
+        updated_at: new Date().toISOString()
+      });
+      console.log("ℹ️ User lama login ulang, updated_at diperbarui");
+    } else {
+      // kalau belum ada → simpan data baru
+      await set(userRef, {
+        name: user.displayName || user.email.split("@")[0],
+        email: user.email,
+        provider: provider,
+        avatar: user.photoURL || "https://example.com/avatar/default.jpg",
+        role: "user",
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      });
+      console.log("✅ User baru disimpan ke DB");
+    }
+  } catch (err) {
+    console.error("❌ Gagal save ke DB:", err);
+    alert("Error save user: " + err.message);
   }
 }
 
@@ -111,6 +116,3 @@ document.getElementById("facebookRegister").addEventListener("click", async () =
     alert(err.message);
   }
 });
-
-
-
