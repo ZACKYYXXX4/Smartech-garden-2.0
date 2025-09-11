@@ -95,18 +95,18 @@ body {
   color: #fff;
 }
 
-#googleLogin {
+#googleLogin, #registerBtn{
   background: #db4437;
 }
-#googleLogin:hover {
+#googleLogin:hover, #registerBtn:hover{
   background: #c1351d;
   box-shadow: 0 0 15px rgba(219, 68, 55, 0.7);
 }
 
-#facebookLogin {
+#facebookLogin, #registerBtn {
   background: #1877f2;
 }
-#facebookLogin:hover {
+#facebookLogin:hover, #registerBtn:hover {
   background: #0d5bdd;
   box-shadow: 0 0 15px rgba(24, 119, 242, 0.7);
 }
@@ -132,4 +132,5 @@ body {
 .login-container a:hover {
   color: #1abc9c;
 }
+
 
