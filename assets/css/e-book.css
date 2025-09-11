@@ -54,7 +54,7 @@ body {
 /* Container untuk list e-book */
 .ebook-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* lebih kecil biar muat 4 */
   gap: 20px;
   margin-top: 20px;
 }
@@ -66,11 +66,15 @@ body {
   box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
   padding: 15px;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column; /* gambar atas, teks bawah */
+  align-items: center;
+  text-align: center;
 }
 
 .card img {
   width: 100%;
-  height: 180px;
+  height: 160px; /* lebih ramping */
   object-fit: cover;
   border-radius: 10px;
   margin-bottom: 10px;
@@ -78,13 +82,14 @@ body {
 
 .card h3 {
   color: #2e7d32;
-  margin: 8px 0;
+  margin: 6px 0;
+  font-size: 1.1rem;
 }
 
 .card p {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   line-height: 1.4;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 }
 
 /* Efek hover */
@@ -92,7 +97,6 @@ body {
   transform: translateY(-5px);
   box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
 }
-
 
 /* Animations */
 @keyframes fadeIn {
@@ -110,17 +114,24 @@ body {
   to { transform: translateY(0); opacity: 1; }
 }
 
-/* Responsive */
-@media (min-width: 768px) {
+/* Responsive grid */
+@media (max-width: 767px) {
   .ebook-list {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr; /* HP → 1 kolom */
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .ebook-list {
+    grid-template-columns: 1fr 1fr; /* Tablet → 2 kolom */
   }
 }
 
 @media (min-width: 1024px) {
   .ebook-list {
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: repeat(4, 1fr); /* Desktop → 4 kolom */
   }
 }
+
 
 
