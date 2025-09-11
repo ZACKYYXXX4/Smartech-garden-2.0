@@ -86,12 +86,12 @@ document.getElementById("registerBtn").addEventListener("click", async () => {
   }
 });
 
-// ✅ Login/Daftar pakai Google
-document.getElementById("googleLogin").addEventListener("click", async () => {
+// ✅ Register/Login pakai Google
+document.getElementById("googleRegister").addEventListener("click", async () => {
   try {
     const result = await signInWithPopup(auth, googleProvider);
     await saveUserToDB(result.user, "google");
-    alert("✅ Login Google berhasil!");
+    alert("✅ Registrasi dengan Google berhasil!");
     window.location.href = "index.html";
   } catch (err) {
     console.error("❌ Error Google:", err);
@@ -99,17 +99,18 @@ document.getElementById("googleLogin").addEventListener("click", async () => {
   }
 });
 
-// ✅ Login/Daftar pakai Facebook
-document.getElementById("facebookLogin").addEventListener("click", async () => {
+// ✅ Register/Login pakai Facebook
+document.getElementById("facebookRegister").addEventListener("click", async () => {
   try {
     const result = await signInWithPopup(auth, facebookProvider);
     await saveUserToDB(result.user, "facebook");
-    alert("✅ Login Facebook berhasil!");
+    alert("✅ Registrasi dengan Facebook berhasil!");
     window.location.href = "index.html";
   } catch (err) {
     console.error("❌ Error Facebook:", err);
     alert(err.message);
   }
 });
+
 
 
