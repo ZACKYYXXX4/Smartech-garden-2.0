@@ -1,11 +1,23 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";
-import { getFirestore, doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js";
+import { 
+  getAuth, 
+  createUserWithEmailAndPassword, 
+  updateProfile,
+  GoogleAuthProvider,
+  FacebookAuthProvider,
+  signInWithPopup
+} from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";
+import { 
+  getDatabase, 
+  ref, 
+  set 
+} from "https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js";
 
-// Firebase Config
+// 🔧 Firebase Config
 const firebaseConfig = {
   apiKey: "AIzaSyB35rgDqqlPUsPf0UCy_IK-NbfvsPpz-4c",
   authDomain: "plant-1942d.firebaseapp.com",
+  databaseURL: "https://plant-1942d-default-rtdb.firebaseio.com",
   projectId: "plant-1942d",
   storageBucket: "plant-1942d.appspot.com",
   messagingSenderId: "331323609056",
@@ -13,44 +25,74 @@ const firebaseConfig = {
   measurementId: "G-5H86EBSWGL"
 };
 
+// 🔧 Init Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const db = getFirestore(app);
+const db = getDatabase(app);
 
-// Register User
+// Providers
+const googleProvider = new GoogleAuthProvider();
+const facebookProvider = new FacebookAuthProvider();
+
+// 🎯 Simpan data user ke Realtime Database
+async function saveUserToDB(user, provider) {
+  const userRef = ref(db, "users/" + user.uid);
+  await set(userRef, {
+    name: user.displayName || user.email.split("@")[0],
+    email: user.email,
+    provider: provider,
+    avatar: user.photoURL || "https://example.com/avatar/default.jpg",
+    role: "user",
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString()
+  });
+}
+
+// ✅ Register pakai Email & Password
 document.getElementById("registerBtn").addEventListener("click", async () => {
-  const name = document.getElementById("regName").value;
-  const email = document.getElementById("regEmail").value;
-  const password = document.getElementById("regPassword").value;
+  const email = document.getElementById("regEmail").value.trim();
+  const password = document.getElementById("regPassword").value.trim();
 
-  if (!name || !email || !password) {
-    alert("Nama, email, dan password harus diisi!");
+  if (!email || !password) {
+    alert("❌ Email dan password harus diisi!");
     return;
   }
 
   try {
-    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const userCred = await createUserWithEmailAndPassword(auth, email, password);
+    await updateProfile(userCred.user, { displayName: email.split("@")[0] });
+    await saveUserToDB(userCred.user, "email");
 
-    // Update profile dengan nama & avatar default
-    await updateProfile(userCredential.user, {
-      displayName: name,
-      photoURL: "https://example.com/avatar/default.jpg"
-    });
-
-    // Simpan user ke Firestore
-    await setDoc(doc(db, "users", userCredential.user.uid), {
-      name: name,
-      email: email,
-      provider: "email",
-      avatar: "https://example.com/avatar/default.jpg",
-      created_at: serverTimestamp(),
-      updated_at: serverTimestamp()
-    });
-
-    alert("Registrasi berhasil! Silakan login.");
-    window.location.href = "login.html";
-
+    alert("✅ Registrasi berhasil! Silakan login.");
+    window.location.href = "login_pages.html";
   } catch (err) {
-    alert("Registrasi Error: " + err.message);
+    console.error("❌ Error register:", err);
+    alert(err.message);
+  }
+});
+
+// ✅ Login/Daftar pakai Google
+document.getElementById("googleLogin").addEventListener("click", async () => {
+  try {
+    const result = await signInWithPopup(auth, googleProvider);
+    await saveUserToDB(result.user, "google");
+    alert("✅ Login Google berhasil!");
+    window.location.href = "index.html";
+  } catch (err) {
+    console.error("❌ Error Google:", err);
+    alert(err.message);
+  }
+});
+
+// ✅ Login/Daftar pakai Facebook
+document.getElementById("facebookLogin").addEventListener("click", async () => {
+  try {
+    const result = await signInWithPopup(auth, facebookProvider);
+    await saveUserToDB(result.user, "facebook");
+    alert("✅ Login Facebook berhasil!");
+    window.location.href = "index.html";
+  } catch (err) {
+    console.error("❌ Error Facebook:", err);
+    alert(err.message);
   }
 });
