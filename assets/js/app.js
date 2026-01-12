@@ -15,7 +15,6 @@ onAuthStateChanged(auth, (user) => {
     window.location.href = "./login_pages.html";
   } else {
     console.log("User sudah login:", user.email);
-    // Ambil data history dan e-book setelah login
     fetchHistory();
     fetchEbook();
   }
@@ -44,9 +43,8 @@ const btnAuto = document.getElementById("btnAuto");
 const btnManual = document.getElementById("btnManual");
 const controls = document.querySelector(".controls");
 
-// History & E-book containers
-const historyList = document.getElementById("historyList"); // <ul> atau <div>
-const ebookList = document.getElementById("ebookList"); // <ul> atau <div>
+const historyList = document.getElementById("historyList");
+const ebookList = document.getElementById("ebookList");
 
 // ===== Chart helper =====
 function createChart(ctx, label, color) {
@@ -68,8 +66,7 @@ const chartTanah = createChart(document.getElementById("chartTanah"), "Tanah (%)
 const chartCahaya = createChart(document.getElementById("chartCahaya"), "Cahaya (Lux)", "orange");
 
 // ===== Realtime listener sensor =====
-const dbRef = ref(db, "sensor");
-onValue(dbRef, (snapshot) => {
+onValue(ref(db, "sensor"), (snapshot) => {
   const data = snapshot.val();
   if (!data) return;
 
@@ -98,7 +95,7 @@ onValue(dbRef, (snapshot) => {
   if (data.suhu > 35) showToast("🌡️ Suhu tinggi! Ventilasi disarankan", "error");
 });
 
-// ===== Tombol Auto / Manual dengan overlay hanya untuk tombol =====
+// ===== Button animation =====
 function animateButton(btn) {
   const overlay = btn.querySelector(".anim-overlay");
   const video = overlay.querySelector("video");
@@ -120,30 +117,64 @@ function animateButton(btn) {
   }, 2000);
 }
 
-// Tombol AUTO
+// ===== AUTO =====
 btnAuto.addEventListener("click", () => {
   animateButton(btnAuto);
   controls.querySelectorAll(".manual-pompa").forEach(el => el.style.display = "none");
+  set(ref(db, "kontrol/mode"), "AUTO");
   showToast("🤖 Mode AUTO aktif", "info");
 });
 
-// Tombol MANUAL
+// ===== MANUAL =====
 btnManual.addEventListener("click", () => {
   animateButton(btnManual);
   controls.querySelectorAll(".manual-pompa").forEach(el => el.style.display = "inline-block");
+  set(ref(db, "kontrol/mode"), "MANUAL");
   showToast("🖐 Mode MANUAL aktif", "info");
 });
 
-// ===== Kontrol pompa manual =====
-window.setPompa = function(status) {
+// ===== Kontrol pompa =====
+window.setPompa = function (status) {
   set(ref(db, "kontrol/pompa"), status);
   showToast(`💧 Pompa ${status}`, "info");
 };
 
+// ===== Status pompa realtime =====
+onValue(ref(db, "kontrol/pompa"), (snapshot) => {
+  const status = snapshot.val();
+  if (!status) return;
+
+  if (status === "ON") showToast("💧 Pompa MENYALA", "info");
+  if (status === "OFF") showToast("🛑 Pompa MATI", "info");
+});
+
+// ===== STATUS ESP ONLINE / OFFLINE =====
+let espOnline = false;
+let espTimeout = null;
+
+onValue(ref(db, "status"), (snapshot) => {
+  const data = snapshot.val();
+  if (!data) return;
+
+  const now = Math.floor(Date.now() / 1000);
+  const lastSeen = data.lastSeen ?? 0;
+
+  if (now - lastSeen < 15) {
+    if (!espOnline) {
+      espOnline = true;
+      showToast("🟢 ESP32 ONLINE", "success");
+    }
+    if (espTimeout) clearTimeout(espTimeout);
+    espTimeout = setTimeout(() => {
+      espOnline = false;
+      showToast("🔴 ESP32 OFFLINE", "error");
+    }, 15000);
+  }
+});
+
 // ===== Fetch History =====
 function fetchHistory() {
-  const historyRef = ref(db, "history");
-  onValue(historyRef, (snapshot) => {
+  onValue(ref(db, "history"), (snapshot) => {
     const data = snapshot.val();
     if (!data) return;
 
@@ -151,7 +182,7 @@ function fetchHistory() {
     Object.keys(data).forEach(key => {
       const item = data[key];
       const li = document.createElement("li");
-      li.textContent = `${item.tanggal || "-"} - ${item.keterangan || "-"}`;
+      li.textContent = `${key} | Suhu:${item.suhu} Tanah:${item.tanah}`;
       historyList.appendChild(li);
     });
   });
@@ -159,22 +190,20 @@ function fetchHistory() {
 
 // ===== Fetch E-book =====
 function fetchEbook() {
-  const ebookRef = ref(db, "e-book");
-  onValue(ebookRef, (snapshot) => {
+  onValue(ref(db, "e-book"), (snapshot) => {
     const data = snapshot.val();
     if (!data) return;
 
     ebookList.innerHTML = "";
-    Object.keys(data).forEach(key => {
-      const item = data[key];
+    Object.values(data).forEach(item => {
       const li = document.createElement("li");
-      li.innerHTML = `<a href="${item.url}" target="_blank">${item.judul || "Untitled"}</a>`;
+      li.textContent = item.nama;
       ebookList.appendChild(li);
     });
   });
 }
 
-// ===== TOAST NOTIFIKASI =====
+// ===== TOAST =====
 function showToast(message, type = "info", link = null) {
   const container = document.getElementById("notif-container");
   const toast = document.createElement("div");
@@ -185,29 +214,10 @@ function showToast(message, type = "info", link = null) {
     <span class="close-btn">&times;</span>
   `;
 
-  if (link) {
-    toast.classList.add("link");
-    const msgEl = toast.querySelector(".msg");
-    msgEl.classList.add("linkable");
-    msgEl.addEventListener("click", () => {
-      window.open(link, "_blank");
-    });
-  }
-
-  toast.querySelector(".close-btn").addEventListener("click", () => {
-    toast.classList.remove("show");
-    setTimeout(() => toast.remove(), 300);
-  });
-
+  toast.querySelector(".close-btn").onclick = () => toast.remove();
   container.appendChild(toast);
 
-  setTimeout(() => toast.classList.add("show"), 100);
-  setTimeout(() => {
-    if (toast.parentElement) {
-      toast.classList.remove("show");
-      setTimeout(() => toast.remove(), 500);
-    }
-  }, 4000);
+  setTimeout(() => toast.remove(), 4000);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
