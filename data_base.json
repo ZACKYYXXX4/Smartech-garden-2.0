@@ -11,7 +11,7 @@
       "enable": true,
       "start": "06:00",
       "end": "06:10"
-    }
+    },
     "status": {
     "esp": "ONLINE",
     "lastSeen": 1700000000
@@ -146,6 +146,7 @@
   }
   ]
 }
+
 
 
 
