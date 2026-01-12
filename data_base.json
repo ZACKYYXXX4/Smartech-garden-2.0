@@ -29,8 +29,7 @@
   "meta": {
     "source": "esp32",
     "protocol": "http | websocket | serial"
-  }
-},
+  },
   "history": {
     "2025-09-08T19:00:00Z": { "suhu": 25, "kelembaban": 65, "tanah": 40, "cahaya": 500 },
     "2025-09-08T19:05:00Z": { "suhu": 26, "kelembaban": 64, "tanah": 42, "cahaya": 510 },
@@ -38,7 +37,7 @@
     "2025-09-08T19:15:00Z": { "suhu": 27, "kelembaban": 62, "tanah": 45, "cahaya": 530 },
     "2025-09-08T19:20:00Z": { "suhu": 27, "kelembaban": 61, "tanah": 46, "cahaya": 540 }
   },
-  "e-book": [
+ "e-book": [
     {
     "nama": "Tomat",
     "gambar": "https://upload.wikimedia.org/wikipedia/commons/8/89/Tomato_je.jpg",
@@ -160,9 +159,6 @@
   }
   ]
 }
-
-
-
 
 
 
