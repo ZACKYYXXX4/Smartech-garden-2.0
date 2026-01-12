@@ -1,14 +1,15 @@
 {
   "sensor": {
-    "suhu": 25,
-    "kelembaban": 65,
-    "tanah": 40,
-    "cahaya": 500
+    "suhu": 27.5,
+    "kelembaban": 68,
+    "tanah": 2310,
+    "cahaya": 0
   },
   "kontrol": {
+    "mode": "manual",
     "pompa": "OFF",
     "timer": {
-      "enable": true,
+      "enable": false,
       "start": "06:00",
       "end": "06:10"
     }
@@ -27,11 +28,9 @@
   },
   "meta": {
     "source": "esp32",
-    "transport": "wifi",
     "protocol": "http | websocket | serial"
   }
 },
-  },
   "history": {
     "2025-09-08T19:00:00Z": { "suhu": 25, "kelembaban": 65, "tanah": 40, "cahaya": 500 },
     "2025-09-08T19:05:00Z": { "suhu": 26, "kelembaban": 64, "tanah": 42, "cahaya": 510 },
@@ -161,6 +160,7 @@
   }
   ]
 }
+
 
 
 
