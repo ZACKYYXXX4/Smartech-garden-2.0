@@ -11,11 +11,26 @@
       "enable": true,
       "start": "06:00",
       "end": "06:10"
-    },
-    "status": {
-    "esp": "ONLINE",
-    "lastSeen": 1700000000
+    }
   },
+  "status": {
+    "esp": "ONLINE",
+    "ssid": "GOKIL",
+    "ip": "192.168.1.50",
+    "lastSeen": 1700000000,
+    "channel": {
+      "wifi": true,
+      "http": true,
+      "websocket": true,
+      "serial": true
+    }
+  },
+  "meta": {
+    "source": "esp32",
+    "transport": "wifi",
+    "protocol": "http | websocket | serial"
+  }
+},
   },
   "history": {
     "2025-09-08T19:00:00Z": { "suhu": 25, "kelembaban": 65, "tanah": 40, "cahaya": 500 },
@@ -146,6 +161,7 @@
   }
   ]
 }
+
 
 
 
