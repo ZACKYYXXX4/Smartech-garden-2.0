@@ -2,7 +2,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";
 import { getDatabase, ref, onValue, set } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js";
-import { firebaseConfig } from "./firebase_config.js"; // import config
+import { firebaseConfig } from "./firebase_config.js";
 
 // ===== Inisialisasi Firebase =====
 const app = initializeApp(firebaseConfig);
@@ -15,7 +15,6 @@ onAuthStateChanged(auth, (user) => {
     window.location.href = "./login_pages.html";
   } else {
     console.log("User sudah login:", user.email);
-    // Ambil data history dan e-book setelah login
     fetchHistory();
     fetchEbook();
   }
@@ -44,19 +43,30 @@ const btnAuto = document.getElementById("btnAuto");
 const btnManual = document.getElementById("btnManual");
 const controls = document.querySelector(".controls");
 
-// History & E-book containers
-const historyList = document.getElementById("historyList"); // <ul> atau <div>
-const ebookList = document.getElementById("ebookList"); // <ul> atau <div>
+const historyList = document.getElementById("historyList");
+const ebookList = document.getElementById("ebookList");
 
 // ===== Chart helper =====
 function createChart(ctx, label, color) {
   return new Chart(ctx, {
     type: "line",
-    data: { labels: [], datasets: [{ label, data: [], borderColor: color, borderWidth: 2, fill: false }] },
+    data: {
+      labels: [],
+      datasets: [{
+        label,
+        data: [],
+        borderColor: color,
+        borderWidth: 2,
+        fill: false
+      }]
+    },
     options: {
       responsive: true,
       animation: false,
-      scales: { x: { display: false }, y: { beginAtZero: true } }
+      scales: {
+        x: { display: false },
+        y: { beginAtZero: true }
+      }
     }
   });
 }
@@ -79,6 +89,7 @@ onValue(dbRef, (snapshot) => {
   cahayaEl.textContent = data.cahaya ?? "--";
 
   const time = new Date().toLocaleTimeString();
+
   const updateChart = (chart, value) => {
     chart.data.labels.push(time);
     chart.data.datasets[0].data.push(value);
@@ -98,7 +109,7 @@ onValue(dbRef, (snapshot) => {
   if (data.suhu > 35) showToast("🌡️ Suhu tinggi! Ventilasi disarankan", "error");
 });
 
-// ===== Tombol Auto / Manual dengan overlay hanya untuk tombol =====
+// ===== Tombol Auto / Manual (ASLI LO) =====
 function animateButton(btn) {
   const overlay = btn.querySelector(".anim-overlay");
   const video = overlay.querySelector("video");
@@ -120,14 +131,14 @@ function animateButton(btn) {
   }, 2000);
 }
 
-// Tombol AUTO
+// AUTO
 btnAuto.addEventListener("click", () => {
   animateButton(btnAuto);
   controls.querySelectorAll(".manual-pompa").forEach(el => el.style.display = "none");
   showToast("🤖 Mode AUTO aktif", "info");
 });
 
-// Tombol MANUAL
+// MANUAL
 btnManual.addEventListener("click", () => {
   animateButton(btnManual);
   controls.querySelectorAll(".manual-pompa").forEach(el => el.style.display = "inline-block");
@@ -174,7 +185,7 @@ function fetchEbook() {
   });
 }
 
-// ===== TOAST NOTIFIKASI =====
+// ===== TOAST NOTIFIKASI (ASLI LO) =====
 function showToast(message, type = "info", link = null) {
   const container = document.getElementById("notif-container");
   const toast = document.createElement("div");
@@ -210,7 +221,34 @@ function showToast(message, type = "info", link = null) {
   }, 4000);
 }
 
+// ===== TAMBAHAN: ABOUT ME (BALIK) =====
 document.addEventListener("DOMContentLoaded", () => {
-  showToast("🔗 About Me", "link", "https://zackcode46.github.io/portfolioweb/");
+  showToast(
+    "👤 Tentang Saya – Klik untuk buka profil",
+    "link",
+    "https://zackcode46.github.io/portfolioweb/"
+  );
+});
+
+// ===== TAMBAHAN: KIRIM MODE KE ESP =====
+btnAuto.addEventListener("click", () => {
+  set(ref(db, "kontrol/mode"), "AUTO");
+  showToast("🤖 Pompa AUTO ON (Manual OFF)", "info");
+});
+
+btnManual.addEventListener("click", () => {
+  set(ref(db, "kontrol/mode"), "MANUAL");
+  showToast("🖐 Pompa MANUAL ON (Auto OFF)", "info");
+});
+
+// ===== TAMBAHAN: LISTENER STATUS ESP =====
+const statusRef = ref(db, "status");
+onValue(statusRef, (snap) => {
+  const s = snap.val();
+  if (!s) return;
+
+  if (s.esp === "ONLINE") showToast("✅ ESP32 ONLINE", "success");
+  if (s.firebase === "CONNECTED") showToast("🔥 ESP terhubung Firebase", "info");
+  if (s.wifi === "OFFLINE") showToast("📡 ESP WIFI OFFLINE", "error");
 });
 
