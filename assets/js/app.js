@@ -1,4 +1,3 @@
-yauda lo tambahin code yang buat connect ke sp di full code js gua ini, tapi jangan dirubahatau dihapus yang lainnya, cua nambain yang perlu
 // ===== Import Firebase =====
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";
@@ -214,3 +213,4 @@ function showToast(message, type = "info", link = null) {
 document.addEventListener("DOMContentLoaded", () => {
   showToast("🔗 About Me", "link", "https://zackcode46.github.io/portfolioweb/");
 });
+
