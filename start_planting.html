@@ -4,50 +4,62 @@
   <meta charset="UTF-8">
   <title>Mulai Bertani</title>
   <link rel="stylesheet" href="assets/css/start.css">
-  <link rel="icon" type="image/png" href="assets/images/WhatsApp Image 2025-09-08 at 23.10.24_2c0a5fd1.jpg">
 </head>
 <body>
-  <div class="navigation">
-    <a href="index.html" class="nav-link">🏠 Dashboard</a>
-    <a href="history_pages.html" class="nav-link">📜 History</a>
-    <a href="e-book_pages.html" class="nav-link">📖 E-book</a>
-    <a href="profile.html" class="nav-link">👤 Profile</a>
-    <a href="settings.html" class="nav-link">⚙️ Settings</a><a href="index.html" class="nav-link">🏠 Dashboard</a>
-    <a href="history_pages.html" class="nav-link">📊 History</a>
-  </div>
 
 <div class="container">
 
-  <!-- SEARCH -->
-  <input id="searchInput" placeholder="🔍 Cari tanaman...">
+  <!-- 🔍 TOP BOX -->
+  <div class="top-box">
 
-  <!-- LIST -->
-  <div id="plantList" class="grid"></div>
+    <input id="searchInput" placeholder="🔍 Cari tanaman...">
 
-  <!-- DETAIL -->
+    <!-- GRID -->
+    <div id="plantList" class="grid"></div>
+
+  </div>
+
+  <!-- 📄 DETAIL (INI YANG BALIKIN 🔥) -->
   <div id="detailBox" class="detail hidden">
+    
     <img id="detailImg">
-    <h2 id="detailNama"></h2>
-    <p id="detailDesc"></p>
-    <p id="detailCare"></p>
 
-    <button id="startBtn">🌱 Mulai Tanam</button>
+    <div class="detail-content">
+      <h2 id="detailNama"></h2>
+      <p id="detailDesc"></p>
+      <p id="detailCare"></p>
+
+      <button id="startBtn">🌱 Mulai Tanam</button>
+    </div>
+
   </div>
 
-  <!-- CONNECT -->
-  <div class="connect">
-    <button onclick="connectBluetooth()">🔵 Connect Tools</button>
+  <!-- 🔵 CONNECT -->
+  <div class="connect-box">
+    <h2>🔵 Tools Connect</h2>
+    <button onclick="connectBluetooth()">Connect ESP</button>
   </div>
 
-  <!-- CAMERA -->
-  <div class="camera">
-    <input type="file" id="cameraInput" accept="image/*" capture="environment">
+</div>
+
+<!-- 📸 BOTTOM BAR -->
+<div class="bottom-bar">
+
+  <div class="nav-item">🏠</div>
+  <div class="nav-item">📜</div>
+
+  <div class="camera-btn">
+    <input type="file" id="cameraInput" accept="image/*" capture="environment"> 
     <button onclick="analyzeImage()">📸 Analisa Tanaman</button>
-    <p id="aiResult"></p>
+     <p id="aiResult"></p>
   </div>
+
+  <div class="nav-item">👤</div>
+  <div class="nav-item">⚙️</div>
 
 </div>
 
 <script type="module" src="assets/js/start.js"></script>
 </body>
 </html>
+  
