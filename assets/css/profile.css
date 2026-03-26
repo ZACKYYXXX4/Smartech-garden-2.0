@@ -1,0 +1,75 @@
+body {
+  margin: 0;
+  font-family: Arial;
+  background: #f0f7f2;
+}
+
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  width: 200px;
+  height: 100%;
+  background: #2e7d32;
+  padding-top: 20px;
+}
+
+.sidebar a {
+  display: block;
+  color: white;
+  padding: 12px;
+  text-decoration: none;
+}
+
+.sidebar a:hover,
+.sidebar .active {
+  background: #1b5e20;
+}
+
+/* Main content */
+.main {
+  margin-left: 220px;
+  padding: 20px;
+}
+
+/* Profile Card */
+.profile-card {
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  max-width: 400px;
+}
+
+.profile-card img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+#userRole {
+  display: inline-block;
+  background: #4caf50;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+/* Tanaman */
+.plant-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.plant-item {
+  background: white;
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
