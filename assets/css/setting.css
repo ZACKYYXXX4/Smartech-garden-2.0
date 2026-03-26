@@ -1,0 +1,65 @@
+body {
+  margin: 0;
+  font-family: Arial;
+  background: #e8f5e9;
+}
+
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  width: 200px;
+  height: 100%;
+  background: #2e7d32;
+  padding-top: 20px;
+}
+
+.sidebar a {
+  display: block;
+  color: white;
+  padding: 12px;
+  text-decoration: none;
+}
+
+.sidebar a.active,
+.sidebar a:hover {
+  background: #1b5e20;
+}
+
+/* Main */
+.main {
+  margin-left: 220px;
+  padding: 20px;
+}
+
+/* Card */
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  margin-bottom: 20px;
+}
+
+/* Input */
+input {
+  padding: 10px;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+/* Button */
+button {
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  background: #2e7d32;
+  color: white;
+  cursor: pointer;
+}
+
+button.danger {
+  background: red;
+}
+
+button.logout {
+  background: black;
+}
