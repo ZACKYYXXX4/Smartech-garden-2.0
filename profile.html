@@ -11,10 +11,10 @@
 <!-- Sidebar -->
 <div class="sidebar">
   <a href="index.html" class="nav-link">🏠 Dashboard</a>
-    <a href="history_pages.html" class="nav-link">📜 History</a>
-    <a href="e-book_pages.html" class="nav-link">📖 E-book</a>
-    <a href="settings.html" class="nav-link">⚙️ Settings</a>
-    <a href="start_planting.html" class="nav-link">🚀 Settings</a>
+  <a href="history_pages.html" class="nav-link">📜 History</a>
+  <a href="e-book_pages.html" class="nav-link">📖 E-book</a>
+  <a href="start_planting.html" class="nav-link">🚀 Mulai Tanam</a>
+  <a href="settings.html" class="nav-link">⚙️ Settings</a>
 </div>
 
 <!-- Content -->
@@ -22,10 +22,23 @@
 
   <h1>👤 Profile Pengguna</h1>
 
+  <!-- PROFILE CARD -->
   <div class="profile-card">
     <img id="userPhoto" src="">
     <h2 id="userName">Loading...</h2>
     <p id="userEmail"></p>
+
+    <!-- ROLE + LEVEL -->
+    <div class="user-stats">
+      <p id="userRole">Role: Loading...</p>
+      <p id="userLevel">Level: 1</p>
+      <p id="userXP">XP: 0</p>
+    </div>
+
+    <!-- XP BAR -->
+    <div class="xp-bar">
+      <div id="xpFill"></div>
+    </div>
 
     <!-- DESKRIPSI -->
     <p id="userDesc">Memuat deskripsi...</p>
@@ -38,13 +51,19 @@
       <button id="editBtn">✏️ Edit</button>
       <button id="saveBtn" style="display:none;">💾 Simpan</button>
     </div>
-
-    <!-- ROLE -->
-    <span id="userRole">Loading...</span>
   </div>
 
-  <h2>🌱 Tanaman Saya</h2>
-  <div id="userPlants" class="plant-grid"></div>
+  <!-- 🔥 QUEST AKTIF -->
+  <h2>🔥 Tanaman Aktif</h2>
+  <div id="activePlants" class="plant-grid"></div>
+
+  <!-- ✅ QUEST SELESAI -->
+  <h2>✅ Tanaman Selesai</h2>
+  <div id="completedPlants" class="plant-grid"></div>
+
+  <!-- 📜 HISTORY -->
+  <h2>📜 Riwayat Tanam</h2>
+  <div id="historyLog" class="plant-grid"></div>
 
 </div>
 
