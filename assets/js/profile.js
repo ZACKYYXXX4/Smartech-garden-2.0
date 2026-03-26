@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-import { getDatabase, ref, get, update } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+import { getDatabase, ref, get, update, set } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
 
 import { firebaseConfig } from "./firebase_config.js";
@@ -23,32 +23,49 @@ onAuthStateChanged(auth, async (user) => {
       user.photoURL || "https://via.placeholder.com/150";
     document.getElementById("userUID").innerText = user.uid;
 
-    const snapshot = await get(ref(db, "users/" + user.uid));
+    const userRef = ref(db, "users/" + user.uid);
+    let snapshot = await get(userRef);
 
-    if (snapshot.exists()) {
-      const data = snapshot.val();
+    // 🔥 AUTO CREATE USER
+    if (!snapshot.exists()) {
+      const defaultData = {
+        deskripsi: "Halo, saya petani baru 🌱",
+        xp: 0,
+        level: 1,
+        role: "🌱 Petani Pemula",
+        quests: {
+          active: {},
+          completed: {}
+        }
+      };
 
-      // ===== BASIC =====
-      document.getElementById("userDesc").innerText =
-        data.deskripsi || "Belum ada deskripsi";
+      await set(userRef, defaultData);
 
-      document.getElementById("userRole").innerText =
-        data.role || "🌱 Petani Pemula";
-
-      document.getElementById("userLevel").innerText =
-        "Level: " + (data.level || 1);
-
-      document.getElementById("userXP").innerText =
-        "XP: " + (data.xp || 0);
-
-      updateXPBar(data.xp || 0);
-
-      // ===== QUEST =====
-      renderActive(data.quests?.active || {});
-      renderCompleted(data.quests?.completed || {});
-    } else {
-      document.getElementById("userDesc").innerText = "Belum ada deskripsi";
+      // ambil ulang setelah dibuat
+      snapshot = await get(userRef);
     }
+
+    const data = snapshot.val();
+
+    // ===== BASIC =====
+    document.getElementById("userDesc").innerText =
+      data.deskripsi || "Belum ada deskripsi";
+
+    document.getElementById("userRole").innerText =
+      data.role || "🌱 Petani Pemula";
+
+    document.getElementById("userLevel").innerText =
+      "Level: " + (data.level || 1);
+
+    document.getElementById("userXP").innerText =
+      "XP: " + (data.xp || 0);
+
+    updateXPBar(data.xp || 0);
+
+    // ===== QUEST =====
+    renderActive(data.quests?.active || {});
+    renderCompleted(data.quests?.completed || {});
+
   } else {
     alert("Belum login!");
     window.location.href = "login.html";
