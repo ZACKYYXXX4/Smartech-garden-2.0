@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Settings</title>
+  <link rel="stylesheet" href="assets/css/settings.css">
+</head>
+<body>
+
+<div class="sidebar">
+  <a href="index.html">🏠 Dashboard</a>
+  <a href="profile.html">👤 Profile</a>
+  <a href="start_planting.html">🌱 Mulai Tanam</a>
+  <a href="setting.html" class="active">⚙️ Pengaturan</a>
+</div>
+
+<div class="main">
+  <h1>⚙️ Pengaturan</h1>
+
+  <!-- ACCOUNT -->
+  <div class="card">
+    <h3>👤 Account</h3>
+
+    <input id="nameInput" placeholder="Ganti nama">
+    <button onclick="updateName()">Simpan Nama</button>
+
+    <button class="logout" onclick="logout()">🚪 Logout</button>
+  </div>
+
+  <!-- FARMING -->
+  <div class="card">
+    <h3>🌱 Farming</h3>
+
+    <button class="danger" onclick="resetProgress()">Reset Semua Progress</button>
+  </div>
+
+  <!-- APP -->
+  <div class="card">
+    <h3>⚙️ App</h3>
+
+    <label>
+      <input type="checkbox" id="notifToggle">
+      Notifikasi Quest
+    </label>
+
+    <label>
+      <input type="checkbox" id="darkToggle">
+      Dark Mode
+    </label>
+  </div>
+
+</div>
+
+<script type="module" src="assets/js/settings.js"></script>
+</body>
+</html>
