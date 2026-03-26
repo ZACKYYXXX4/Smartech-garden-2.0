@@ -224,7 +224,7 @@ function showToast(message, type = "info", link = null) {
 // ===== TAMBAHAN: ABOUT ME (BALIK) =====
 document.addEventListener("DOMContentLoaded", () => {
   showToast(
-    "👤 Tentang Saya – Klik untuk buka profil",
+    "👤 Tentang Developer – Klik untuk buka profil",
     "link",
     "https://zackcode46.github.io/portfolioweb/"
   );
@@ -233,12 +233,12 @@ document.addEventListener("DOMContentLoaded", () => {
 // ===== TAMBAHAN: KIRIM MODE KE ESP =====
 btnAuto.addEventListener("click", () => {
   set(ref(db, "kontrol/mode"), "AUTO");
-  showToast("🤖 Pompa AUTO ON (Manual OFF)", "info");
+  showToast("🤖 Pompa AUTO ON (🖐 Pompa Manual OFF)", "info");
 });
 
 btnManual.addEventListener("click", () => {
   set(ref(db, "kontrol/mode"), "MANUAL");
-  showToast("🖐 Pompa MANUAL ON (Auto OFF)", "info");
+  showToast("🖐 Pompa MANUAL ON (🤖Pompa Auto OFF)", "info");
 });
 
 // ===== TAMBAHAN: LISTENER STATUS ESP =====
