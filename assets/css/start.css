@@ -1,4 +1,3 @@
-/* BODY */
 body {
   font-family: Arial;
   background: linear-gradient(to right, #a8e063, #56ab2f);
@@ -18,7 +17,7 @@ body {
   background: #ffffffcc;
   border-radius: 20px;
   padding: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
 /* SEARCH */
@@ -27,7 +26,7 @@ body {
   padding: 12px;
   border-radius: 20px;
   border: none;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
 /* GRID */
@@ -57,12 +56,12 @@ body {
   border-radius: 10px;
 }
 
-/* DETAIL */
+/* 🔥 DETAIL */
 .detail {
   background: white;
   border-radius: 20px;
   overflow: hidden;
-  margin: 20px 0;
+  margin-bottom: 30px;
   box-shadow: 0 8px 20px rgba(0,0,0,0.2);
 }
 
@@ -82,27 +81,28 @@ body {
   border-radius: 20px;
   padding: 25px;
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 }
 
-/* CAMERA SECTION */
+/* 🔥 CAMERA SECTION (PINDAH KE ATAS, BUKAN DI NAVBAR) */
 .camera-section {
   background: #ffffffcc;
   border-radius: 20px;
   padding: 20px;
   text-align: center;
+  margin-bottom: 40px;
 }
 
-/* BOTTOM BAR */
+/* 🔥 BOTTOM BAR FIX */
 .bottom-bar {
   position: fixed;
   bottom: 0;
   width: 100%;
+  height: 60px; /* 🔥 lebih kecil */
   background: #2e7d32;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding: 12px 0;
   z-index: 999;
 }
 
@@ -112,14 +112,17 @@ body {
   font-size: 20px;
 }
 
-/* CAMERA BUTTON (TENGAH) */
+/* 🔥 CAMERA FLOAT BUTTON */
 .camera-btn {
+  position: absolute;
+  top: -25px;
+  left: 50%;
+  transform: translateX(-50%);
   background: white;
-  padding: 18px;
+  padding: 15px;
   border-radius: 50%;
   font-size: 18px;
-  transform: translateY(-25px);
-  box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
 /* BUTTON */
