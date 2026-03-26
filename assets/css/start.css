@@ -41,16 +41,18 @@ body {
 
 .detail {
   background: white;
-  padding: 20px;
   border-radius: 15px;
-  margin-top: 20px;
+  overflow: hidden;
 }
 
 .detail img {
   width: 100%;
-  max-height: 250px;
+  height: 200px;
   object-fit: cover;
-  border-radius: 15px;
+}
+
+.detail-content {
+  padding: 20px;
 }
 
 .hidden {
