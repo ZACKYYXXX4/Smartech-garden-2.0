@@ -21,6 +21,7 @@ onAuthStateChanged(auth, async (user) => {
     document.getElementById("userEmail").innerText = user.email;
     document.getElementById("userPhoto").src =
       user.photoURL || "https://via.placeholder.com/150";
+    document.getElementById("userUID").innerText = user.uid;
 
     const snapshot = await get(ref(db, "users/" + user.uid));
 
