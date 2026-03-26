@@ -10,7 +10,9 @@ const auth = getAuth(app);
 
 let currentUser = null;
 
-// Load user profile
+// ==========================
+// 🔥 LOAD USER PROFILE
+// ==========================
 onAuthStateChanged(auth, async (user) => {
   if (user) {
     currentUser = user;
@@ -25,12 +27,24 @@ onAuthStateChanged(auth, async (user) => {
     if (snapshot.exists()) {
       const data = snapshot.val();
 
-      const desc = data.deskripsi || "Belum ada deskripsi";
+      // ===== BASIC =====
+      document.getElementById("userDesc").innerText =
+        data.deskripsi || "Belum ada deskripsi";
 
-      document.getElementById("userDesc").innerText = desc;
-      document.getElementById("userRole").innerText = data.role || "Beginner";
+      document.getElementById("userRole").innerText =
+        data.role || "🌱 Petani Pemula";
 
-      renderPlants(data.plants || []);
+      document.getElementById("userLevel").innerText =
+        "Level: " + (data.level || 1);
+
+      document.getElementById("userXP").innerText =
+        "XP: " + (data.xp || 0);
+
+      updateXPBar(data.xp || 0);
+
+      // ===== QUEST =====
+      renderActive(data.quests?.active || {});
+      renderCompleted(data.quests?.completed || {});
     } else {
       document.getElementById("userDesc").innerText = "Belum ada deskripsi";
     }
@@ -42,15 +56,22 @@ onAuthStateChanged(auth, async (user) => {
 
 
 // ==========================
+// 🔥 XP BAR
+// ==========================
+function updateXPBar(xp) {
+  const percent = xp % 100;
+  document.getElementById("xpFill").style.width = percent + "%";
+}
+
+
+// ==========================
 // ✏️ EDIT DESKRIPSI
 // ==========================
-
 const editBtn = document.getElementById("editBtn");
 const saveBtn = document.getElementById("saveBtn");
 const descText = document.getElementById("userDesc");
 const descInput = document.getElementById("descInput");
 
-// Klik EDIT
 editBtn.onclick = () => {
   descInput.value = descText.innerText;
 
@@ -61,7 +82,6 @@ editBtn.onclick = () => {
   saveBtn.style.display = "inline-block";
 };
 
-// Klik SIMPAN
 saveBtn.onclick = async () => {
   const newDesc = descInput.value;
 
@@ -82,22 +102,58 @@ saveBtn.onclick = async () => {
 
 
 // ==========================
-// 🌱 RENDER TANAMAN
+// 🌱 QUEST AKTIF
 // ==========================
-
-function renderPlants(plants) {
-  const container = document.getElementById("userPlants");
+function renderActive(active) {
+  const container = document.getElementById("activePlants");
   container.innerHTML = "";
 
-  if (plants.length === 0) {
-    container.innerHTML = "<p>Tidak ada tanaman</p>";
+  if (Object.keys(active).length === 0) {
+    container.innerHTML = "<p>Tidak ada tanaman aktif</p>";
     return;
   }
 
-  plants.forEach(p => {
+  Object.keys(active).forEach(id => {
+    const q = active[id];
+
     const div = document.createElement("div");
-    div.className = "plant-item";
-    div.innerText = p;
+    div.className = "plant-item active";
+
+    div.innerHTML = `
+      <h4>${q.plantId}</h4>
+      <p>Status: ${q.status}</p>
+      <p>Progress: ${q.progress || 0}%</p>
+    `;
+
+    container.appendChild(div);
+  });
+}
+
+
+// ==========================
+// ✅ QUEST SELESAI
+// ==========================
+function renderCompleted(completed) {
+  const container = document.getElementById("completedPlants");
+  container.innerHTML = "";
+
+  if (Object.keys(completed).length === 0) {
+    container.innerHTML = "<p>Belum ada tanaman selesai</p>";
+    return;
+  }
+
+  Object.keys(completed).forEach(id => {
+    const q = completed[id];
+
+    const div = document.createElement("div");
+    div.className = "plant-item done";
+
+    div.innerHTML = `
+      <h4>${q.plantId}</h4>
+      <p>✔ Selesai</p>
+      <p>XP: ${q.xpGained || 0}</p>
+    `;
+
     container.appendChild(div);
   });
 }
