@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Mulai Bertani</title>
+  <link rel="stylesheet" href="assets/css/start.css">
+</head>
+<body>
+
+<div class="container">
+
+  <!-- SEARCH -->
+  <input id="searchInput" placeholder="🔍 Cari tanaman...">
+
+  <!-- LIST -->
+  <div id="plantList" class="grid"></div>
+
+  <!-- DETAIL -->
+  <div id="detailBox" class="detail hidden">
+    <img id="detailImg">
+    <h2 id="detailNama"></h2>
+    <p id="detailDesc"></p>
+    <p id="detailCare"></p>
+
+    <button id="startBtn">🌱 Mulai Tanam</button>
+  </div>
+
+  <!-- CONNECT -->
+  <div class="connect">
+    <button onclick="connectBluetooth()">🔵 Connect Tools</button>
+  </div>
+
+  <!-- CAMERA -->
+  <div class="camera">
+    <input type="file" id="cameraInput" accept="image/*" capture="environment">
+    <button onclick="analyzeImage()">📸 Analisa Tanaman</button>
+    <p id="aiResult"></p>
+  </div>
+
+</div>
+
+<script type="module" src="assets/js/start.js"></script>
+</body>
+</html>
