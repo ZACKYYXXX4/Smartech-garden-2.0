@@ -46,6 +46,13 @@ body {
   margin-top: 20px;
 }
 
+.detail img {
+  width: 100%;
+  max-height: 250px;
+  object-fit: cover;
+  border-radius: 15px;
+}
+
 .hidden {
   display: none;
 }
