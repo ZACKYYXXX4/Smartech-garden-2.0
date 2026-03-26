@@ -1,0 +1,65 @@
+body {
+  font-family: Arial;
+  background: linear-gradient(to right, #a8e063, #56ab2f);
+  margin: 0;
+  padding: 20px;
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+}
+
+#searchInput {
+  width: 100%;
+  padding: 12px;
+  border-radius: 20px;
+  border: none;
+  margin-bottom: 15px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 10px;
+}
+
+.plant-card {
+  background: white;
+  border-radius: 15px;
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.plant-card img {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.detail {
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  margin-top: 20px;
+}
+
+.hidden {
+  display: none;
+}
+
+.connect, .camera {
+  margin-top: 20px;
+  text-align: center;
+}
+
+button {
+  padding: 10px 15px;
+  border-radius: 10px;
+  border: none;
+  background: #2e7d32;
+  color: white;
+  cursor: pointer;
+}
