@@ -9,11 +9,11 @@
 
 <!-- Sidebar -->
 <div class="sidebar">
-    <a href="index.html" class="nav-link">🏠 Dashboard</a>
-    <a href="history_pages.html" class="nav-link">📜 History</a>
-    <a href="e-book_pages.html" class="nav-link">📖 E-book</a>
-    <a href="profile.html" class="nav-link">👤 Profile</a>
-    <a href="settings.html" class="nav-link">⚙️ Settings</a>
+  <a href="index.html" class="nav-link">🏠 Dashboard</a>
+  <a href="history_pages.html" class="nav-link">📜 History</a>
+  <a href="e-book_pages.html" class="nav-link">📖 E-book</a>
+  <a href="profile.html" class="nav-link active">👤 Profile</a>
+  <a href="settings.html" class="nav-link">⚙️ Settings</a>
 </div>
 
 <!-- Content -->
@@ -25,7 +25,20 @@
     <img id="userPhoto" src="">
     <h2 id="userName">Loading...</h2>
     <p id="userEmail"></p>
+
+    <!-- DESKRIPSI -->
     <p id="userDesc">Memuat deskripsi...</p>
+
+    <!-- EDIT MODE -->
+    <textarea id="descInput" placeholder="Tulis deskripsi kamu..." style="display:none;"></textarea>
+
+    <!-- BUTTON -->
+    <div class="desc-buttons">
+      <button id="editBtn">✏️ Edit</button>
+      <button id="saveBtn" style="display:none;">💾 Simpan</button>
+    </div>
+
+    <!-- ROLE -->
     <span id="userRole">Loading...</span>
   </div>
 
