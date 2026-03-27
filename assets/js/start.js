@@ -12,7 +12,7 @@ let plants = [];
 let selectedPlant = null;
 
 // ==========================
-// 🌱 LOAD DATA TANAMAN
+// 🌱 LOAD DATA
 // ==========================
 async function loadPlants() {
   const snapshot = await get(ref(db, "e-book"));
@@ -22,7 +22,7 @@ async function loadPlants() {
 loadPlants();
 
 // ==========================
-// 🎨 RENDER TANAMAN
+// 🎨 RENDER
 // ==========================
 function renderPlants(data) {
   const list = document.getElementById("plantList");
@@ -53,7 +53,7 @@ document.getElementById("searchInput").addEventListener("input", (e) => {
 });
 
 // ==========================
-// 📄 DETAIL TANAMAN
+// 📄 DETAIL
 // ==========================
 function showDetail(p) {
   selectedPlant = p;
@@ -68,7 +68,7 @@ function showDetail(p) {
 // ==========================
 // 🚀 START QUEST (FIXED)
 // ==========================
-document.getElementById("startBtn").onclick = async () => {
+document.getElementById("startBtn").addEventListener("click", async () => {
   const user = auth.currentUser;
 
   if (!user) {
@@ -94,14 +94,14 @@ document.getElementById("startBtn").onclick = async () => {
 
   alert("🌱 Quest dimulai!");
 
-  // 🔥 optional: langsung ke profile
+  // langsung ke profile biar keliatan
   window.location.href = "profile.html";
-};
+});
 
 // ==========================
 // 🔵 BLUETOOTH
 // ==========================
-window.connectBluetooth = async () => {
+document.getElementById("connectBtn").addEventListener("click", async () => {
   try {
     const device = await navigator.bluetooth.requestDevice({
       acceptAllDevices: true
@@ -110,14 +110,18 @@ window.connectBluetooth = async () => {
   } catch (e) {
     console.log(e);
   }
-};
+});
 
 // ==========================
-// 🤖 AI IMAGE
+// 🤖 AI ANALYSIS (FIXED)
 // ==========================
-window.analyzeImage = () => {
+function analyzeImage() {
   const file = document.getElementById("cameraInput").files[0];
-  if (!file) return;
+
+  if (!file) {
+    alert("Pilih gambar dulu!");
+    return;
+  }
 
   const img = new Image();
   img.src = URL.createObjectURL(file);
@@ -142,15 +146,8 @@ window.analyzeImage = () => {
       const g = data[i + 1];
       const b = data[i + 2];
 
-      // 🌿 hijau sehat
-      if (g > r && g > b && g > 100) {
-        green++;
-      }
-
-      // 🍂 coklat / mati
-      if (r > g && r > b && r > 120) {
-        brown++;
-      }
+      if (g > r && g > b && g > 100) green++;
+      if (r > g && r > b && r > 120) brown++;
     }
 
     const greenRatio = green / total;
@@ -158,16 +155,23 @@ window.analyzeImage = () => {
 
     const score = Math.floor((greenRatio * 100) - (brownRatio * 50));
 
-    const result = getHealthStatus(score);
+    const status = score > 50
+      ? "🌿 Tanaman sehat"
+      : "⚠️ Tanaman kurang sehat";
 
     document.getElementById("aiResult").innerHTML = `
-      ${result.status} <br>
-      Skor: ${score}
+      ${status} <br> Skor: ${score}
     `;
 
-    giveXPAdvanced(score);
+    giveXP(score > 50 ? "sehat" : "tidak");
   };
-};
+}
+
+// ==========================
+// 🎯 EVENT LISTENER (FIX)
+// ==========================
+document.getElementById("analyzeBtn")
+  .addEventListener("click", analyzeImage);
 
 // ==========================
 // ⚡ XP SYSTEM
@@ -185,9 +189,9 @@ async function giveXP(result) {
 
   let xp = data.xp || 0;
 
-  xp += result.includes("sehat") ? 50 : 20;
+  xp += result === "sehat" ? 50 : 20;
 
-  let level = Math.floor(xp / 50) + 1;
+  let level = Math.floor(xp / 100) + 1;
 
   const roles = [
     "🌱 Petani Pemula",
