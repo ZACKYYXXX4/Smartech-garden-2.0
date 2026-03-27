@@ -29,6 +29,11 @@
   <div id="ebookList" class="ebook-list"></div>
 
   <script type="module" src="assets/js/e-book.js"></script>
+  <script>
+if (localStorage.getItem("darkMode") === "true") {
+  document.body.classList.add("dark");
+}
+</script>
 </body>
 </html>
 
