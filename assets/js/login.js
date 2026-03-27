@@ -5,7 +5,8 @@ import {
   signInWithPopup, 
   GoogleAuthProvider, 
   FacebookAuthProvider, 
-  onAuthStateChanged 
+  onAuthStateChanged,
+  fetchSignInMethodsForEmail
 } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";
 import { 
   getDatabase, 
@@ -36,6 +37,40 @@ const db = getDatabase(app);
 const googleProvider = new GoogleAuthProvider();
 const facebookProvider = new FacebookAuthProvider();
 
+
+// ==============================
+// 🔥 HELPER AUTO REDIRECT LOGIN
+// ==============================
+async function handleCredentialError(err) {
+  if (err.code === "auth/account-exists-with-different-credential") {
+    const email = err.customData.email;
+
+    const methods = await fetchSignInMethodsForEmail(auth, email);
+
+    console.log("⚠️ Email sudah terdaftar dengan:", methods);
+
+    // 🔥 AUTO REDIRECT
+    if (methods.includes("google.com")) {
+      alert("Akun ini terdaftar dengan Google. Mengalihkan...");
+      const result = await signInWithPopup(auth, googleProvider);
+      await saveUserToDB(result.user, "google");
+      window.location.href = "index.html";
+    } 
+    else if (methods.includes("facebook.com")) {
+      alert("Akun ini terdaftar dengan Facebook. Silakan login ulang.");
+    } 
+    else if (methods.includes("password")) {
+      alert("Gunakan login Email & Password!");
+    } 
+    else {
+      alert("Metode login tidak dikenali.");
+    }
+  } else {
+    alert(err.message);
+  }
+}
+
+
 // 🎯 Simpan / update user ke Realtime Database
 async function saveUserToDB(user, provider) {
   const userRef = ref(db, "users/" + user.uid);
@@ -60,7 +95,10 @@ async function saveUserToDB(user, provider) {
   }
 }
 
-// ✅ Login pakai Email
+
+// ==============================
+// ✅ LOGIN EMAIL (TETAP)
+// ==============================
 document.getElementById("emailLogin").addEventListener("click", async () => {
   const email = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value.trim();
@@ -81,33 +119,44 @@ document.getElementById("emailLogin").addEventListener("click", async () => {
   }
 });
 
-// ✅ Login pakai Google
+
+// ==============================
+// ✅ LOGIN GOOGLE (UPGRADE)
+// ==============================
 document.getElementById("googleLogin").addEventListener("click", async () => {
   try {
     const result = await signInWithPopup(auth, googleProvider);
     await saveUserToDB(result.user, "google");
     alert("✅ Login Google berhasil!");
     window.location.href = "index.html";
+
   } catch (err) {
     console.error("❌ Error Google Login:", err);
-    alert(err.message);
+    await handleCredentialError(err);
   }
 });
 
-// ✅ Login pakai Facebook
+
+// ==============================
+// ✅ LOGIN FACEBOOK (UPGRADE)
+// ==============================
 document.getElementById("facebookLogin").addEventListener("click", async () => {
   try {
     const result = await signInWithPopup(auth, facebookProvider);
     await saveUserToDB(result.user, "facebook");
     alert("✅ Login Facebook berhasil!");
     window.location.href = "index.html";
+
   } catch (err) {
     console.error("❌ Error Facebook Login:", err);
-    alert(err.message);
+    await handleCredentialError(err);
   }
 });
 
-// 🔄 Auto redirect kalau user sudah login
+
+// ==============================
+// 🔄 AUTO REDIRECT
+// ==============================
 onAuthStateChanged(auth, (user) => {
   if (user) {
     console.log("User sudah login:", user.email);
