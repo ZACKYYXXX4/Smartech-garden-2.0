@@ -32,6 +32,28 @@
   margin-top: 5px;
 }
 
+/* DARK MODE GLOBAL */
+body.dark {
+  background: #121212;
+  color: white;
+}
+
+body.dark .card,
+body.dark .profile-card,
+body.dark .plant-item,
+body.dark .detail {
+  background: #1e1e1e;
+  color: white;
+}
+
+body.dark .sidebar {
+  background: #111;
+}
+
+body.dark button {
+  background: #4caf50;
+}
+
 /* Reset dasar */
 * {
   margin: 0;
