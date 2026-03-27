@@ -3,8 +3,7 @@ import {
   getDatabase, 
   ref, 
   get, 
-  update, 
-  remove 
+  update 
 } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
 
 import { 
@@ -22,8 +21,9 @@ const auth = getAuth(app);
 
 let currentUser = null;
 
+
 // ==========================
-// LOAD SETTINGS
+// 🔥 LOAD SETTINGS (FIXED)
 // ==========================
 onAuthStateChanged(auth, async (user) => {
   if (!user) {
@@ -38,17 +38,41 @@ onAuthStateChanged(auth, async (user) => {
   if (snapshot.exists()) {
     const data = snapshot.val();
 
-    document.getElementById("notifToggle").checked =
-      data.settings?.notifications ?? true;
+    // notif
+    const notif = data.settings?.notifications ?? true;
+    document.getElementById("notifToggle").checked = notif;
 
-    document.getElementById("darkToggle").checked =
-      data.settings?.darkMode ?? false;
+    // dark mode
+    const isDark = data.settings?.darkMode ?? false;
+    document.getElementById("darkToggle").checked = isDark;
+
+    // 🔥 APPLY KE UI
+    applyDarkMode(isDark);
+  } else {
+    // fallback dari localStorage
+    const isDark = localStorage.getItem("darkMode") === "true";
+    applyDarkMode(isDark);
   }
 });
 
 
 // ==========================
-// UPDATE NAME
+// 🌙 APPLY DARK MODE (GLOBAL)
+// ==========================
+function applyDarkMode(isDark) {
+  if (isDark) {
+    document.body.classList.add("dark");
+  } else {
+    document.body.classList.remove("dark");
+  }
+
+  // sync localStorage (BIAR SEMUA PAGE NGIKUT)
+  localStorage.setItem("darkMode", isDark);
+}
+
+
+// ==========================
+// ✏️ UPDATE NAME
 // ==========================
 window.updateName = async () => {
   const name = document.getElementById("nameInput").value;
@@ -64,23 +88,37 @@ window.updateName = async () => {
 
 
 // ==========================
-// TOGGLE SETTINGS
+// 🔔 NOTIFICATION TOGGLE
 // ==========================
-document.getElementById("notifToggle").onchange = async (e) => {
+document.getElementById("notifToggle").addEventListener("change", async (e) => {
+  if (!currentUser) return;
+
   await update(ref(db, "users/" + currentUser.uid), {
     "settings/notifications": e.target.checked
   });
-};
-
-document.getElementById("darkToggle").onchange = async (e) => {
-  await update(ref(db, "users/" + currentUser.uid), {
-    "settings/darkMode": e.target.checked
-  });
-};
+});
 
 
 // ==========================
-// RESET PROGRESS
+// 🌙 DARK MODE TOGGLE (FIXED)
+// ==========================
+document.getElementById("darkToggle").addEventListener("change", async (e) => {
+  if (!currentUser) return;
+
+  const isDark = e.target.checked;
+
+  // 🔥 APPLY LANGSUNG
+  applyDarkMode(isDark);
+
+  // 🔥 SAVE KE FIREBASE
+  await update(ref(db, "users/" + currentUser.uid), {
+    "settings/darkMode": isDark
+  });
+});
+
+
+// ==========================
+// 🔥 RESET PROGRESS
 // ==========================
 window.resetProgress = async () => {
   if (!confirm("Yakin mau reset semua progress?")) return;
@@ -100,7 +138,7 @@ window.resetProgress = async () => {
 
 
 // ==========================
-// LOGOUT
+// 🚪 LOGOUT
 // ==========================
 window.logout = async () => {
   await signOut(auth);
