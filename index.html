@@ -79,7 +79,13 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <!-- Script utama -->
   <script type="module" src="assets/js/app.js"></script>
+  <script>
+if (localStorage.getItem("darkMode") === "true") {
+  document.body.classList.add("dark");
+}
+</script>
 </body>
 </html>
+
 
 
